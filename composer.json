@@ -1,0 +1,18 @@
+{
+    "name": "dotkernel/dot-errorhandler",
+    "description": "Logging Error Handler for Middleware Applications",
+    "type": "library",
+    "require": {
+        "zendframework/zend-expressive": "^3.0",
+        "zendframework/zend-log": "^2.10",
+        "dotlogics/ebaytrading": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "gabidj",
+            "email": "git@gabisuciu.ro"
+        }
+    ],
+    "minimum-stability": "stable"
+}

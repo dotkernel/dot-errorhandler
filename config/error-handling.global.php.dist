@@ -1,0 +1,22 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: gabidjdev
+ * Date: 12/11/2018
+ * Time: 19:34
+ */
+
+use Dot\ErrorHandler\ErrorHandlerInterface;
+use Dot\ErrorHandler\LogErrorHandler;
+
+return [
+    'dependencies' => [
+        'aliases' => [
+            ErrorHandlerInterface::class => LogErrorHandler::class,
+        ]
+    ],
+    'dot-errorhandler' => [
+        'loggerEnabled' => true,
+        'logger' => 'dot-log.default_logger'
+    ]
+];
