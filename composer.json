@@ -5,13 +5,13 @@
     "require": {
         "zendframework/zend-expressive": "^3.0",
         "zendframework/zend-log": "^2.10",
-        "dotlogics/ebaytrading": "^1.0"
+        "dotkernel/dot-log": "^1.0"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": "gabidj",
-            "email": "git@gabisuciu.ro"
+            "name": "DotKernel Team",
+            "email": "team@dotkernel.com"
         }
     ],
     "minimum-stability": "stable"
