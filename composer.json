@@ -5,7 +5,9 @@
   "require": {
     "zendframework/zend-expressive": "^3.0",
     "zendframework/zend-log": "^2.10",
-    "dotkernel/dot-log": "^1.0"
+    "dotkernel/dot-log": "^1.0",
+    "psr/http-message": "^1.0",
+    "psr/container": "^1.0"
   },
   "license": "MIT",
   "authors": [
