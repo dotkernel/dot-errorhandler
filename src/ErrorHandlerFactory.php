@@ -1,8 +1,8 @@
 <?php
 /**
- * @see       https://github.com/zendframework/zend-expressive for the canonical source repository
+ * @see       https://github.com/mezzio/mezzio for the canonical source repository
  * @copyright Copyright (c) 2016-2017 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-expressive/blob/master/LICENSE.md New BSD License
+ * @license   https://github.com/mezzio/mezzio/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
@@ -11,7 +11,7 @@ namespace Dot\ErrorHandler;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
-use Zend\Expressive\Middleware\ErrorResponseGenerator;
+use Mezzio\Middleware\ErrorResponseGenerator;
 // use Dot\ErrorHandler\ErrorHandler;
 
 class ErrorHandlerFactory

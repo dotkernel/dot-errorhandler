@@ -10,9 +10,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Throwable;
-use Zend\Log\Logger;
-use Zend\Log\LoggerInterface;
-use Zend\Stratigility\Exception\MissingResponseException;
+use Laminas\Log\Logger;
+use Laminas\Log\LoggerInterface;
+use Laminas\Stratigility\Exception\MissingResponseException;
 
 use function error_reporting;
 use function in_array;
@@ -45,7 +45,7 @@ use function set_error_handler;
  * itself, and can be used as the basis for returning an error response.
  *
  * An error response generator must be provided as a constructor argument;
- * if not provided, an instance of Zend\Stratigility\Middleware\ErrorResponseGenerator
+ * if not provided, an instance of Laminas\Stratigility\Middleware\ErrorResponseGenerator
  * will be used.
  *
  * Listeners use the following signature:

@@ -8,8 +8,8 @@ use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
-use Zend\Expressive\Middleware\ErrorResponseGenerator;
-use Zend\Log\LoggerInterface;
+use Mezzio\Middleware\ErrorResponseGenerator;
+use Laminas\Log\LoggerInterface;
 
 class LogErrorHandlerFactory
 {
