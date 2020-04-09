@@ -3,6 +3,7 @@
     "description": "Logging Error Handler for Middleware Applications",
     "type": "library",
     "require": {
+        "laminas/laminas-diactoros": "^2.0",
         "mezzio/mezzio": "^3.0",
         "laminas/laminas-log": "^2.10",
         "dotkernel/dot-log": "^2.0",

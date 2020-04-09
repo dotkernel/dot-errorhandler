@@ -1,3 +1,20 @@
+## 3.0.0 - 2020-04-09
+
+### Changed
+* Nothing
+
+### Added
+* Missing dependency
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* Nothing
+
 ## 2.0.0 - 2020-01-30
 
 ### Changed
