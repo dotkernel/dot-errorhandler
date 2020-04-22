@@ -1,3 +1,22 @@
+## 3.0.1 - 2020-04-22
+
+### Changed
+* Updated 3rd party dependencies to latest version
+* Updated License
+* Updated .gitignore
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* Nothing
+
 ## 3.0.0 - 2020-04-09
 
 ### Changed
