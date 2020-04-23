@@ -1,3 +1,21 @@
+## 3.0.2 - 2020-04-23
+
+### Changed
+* Nothing
+
+### Added
+* Keywords in composer.json
+* Requirement for PHP v7.4 or higher
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* Nothing
+
 ## 3.0.1 - 2020-04-22
 
 ### Changed

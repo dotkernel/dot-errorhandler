@@ -3,6 +3,7 @@
     "description": "Logging Error Handler for Middleware Applications",
     "type": "library",
     "require": {
+        "php": "^7.4",
         "laminas/laminas-diactoros": "^2.2",
         "mezzio/mezzio": "^3.2",
         "laminas/laminas-log": "^2.12",
@@ -12,6 +13,15 @@
         "laminas/laminas-dependency-plugin": "^1.0"
     },
     "license": "MIT",
+    "keywords": [
+        "error",
+        "errorhandler",
+        "factories",
+        "container",
+        "laminas",
+        "mezzio",
+        "service-manager"
+    ],
     "authors": [
         {
             "name": "DotKernel Team",
