@@ -6,7 +6,7 @@ Logging Error Handler for DotKernel
 
 * Add the composer package:
 
-`composer require dotkernel/dot-errorhandler:^1.0`
+`composer require dotkernel/dot-errorhandler:^3.1`
 
 
 * Add the config provider
