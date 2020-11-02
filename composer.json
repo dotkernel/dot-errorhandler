@@ -1,18 +1,15 @@
 {
     "name": "dotkernel/dot-errorhandler",
-    "description": "Logging Error Handler for Middleware Applications",
     "type": "library",
-    "require": {
-        "php": "^7.4",
-        "laminas/laminas-diactoros": "^2.2",
-        "mezzio/mezzio": "^3.2",
-        "laminas/laminas-log": "^2.12",
-        "dotkernel/dot-log": "^3.0",
-        "psr/http-message": "^1.0",
-        "psr/container": "^1.0",
-        "laminas/laminas-dependency-plugin": "^1.0"
-    },
+    "description": "Logging Error Handler for Middleware Applications",
     "license": "MIT",
+    "homepage": "https://github.com/dotkernel/dot-errorhandler",
+    "authors": [
+        {
+            "name": "DotKernel Team",
+            "email": "team@dotkernel.com"
+        }
+    ],
     "keywords": [
         "error",
         "errorhandler",
@@ -22,12 +19,16 @@
         "mezzio",
         "service-manager"
     ],
-    "authors": [
-        {
-            "name": "DotKernel Team",
-            "email": "team@dotkernel.com"
-        }
-    ],
+    "require": {
+        "php": "^7.4",
+        "laminas/laminas-diactoros": "^2.2",
+        "mezzio/mezzio": "^3.2",
+        "laminas/laminas-log": "^2.12",
+        "dotkernel/dot-log": "^3.0",
+        "psr/http-message": "^1.0",
+        "psr/container": "^1.0",
+        "laminas/laminas-dependency-plugin": "^2.0"
+    },
     "autoload": {
         "psr-4": {
             "Dot\\ErrorHandler\\": "src/"
