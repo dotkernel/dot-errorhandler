@@ -8,7 +8,6 @@ use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
-use Mezzio\Middleware\ErrorResponseGenerator;
 use Laminas\Log\LoggerInterface;
 
 class LogErrorHandlerFactory
@@ -33,8 +32,8 @@ class LogErrorHandlerFactory
             $logger = $container->get($errorHandlerConfig['logger']);
         }
 
-        $generator = $container->has(ErrorResponseGenerator::class)
-            ? $container->get(ErrorResponseGenerator::class)
+        $generator = $container->has(\Mezzio\Middleware\ErrorResponseGenerator::class)
+            ? $container->get(\Mezzio\Middleware\ErrorResponseGenerator::class)
             : null;
 
         return new LogErrorHandler($container->get(ResponseInterface::class), $generator, $logger);

@@ -11,15 +11,13 @@ namespace Dot\ErrorHandler;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
-use Mezzio\Middleware\ErrorResponseGenerator;
-// use Dot\ErrorHandler\ErrorHandler;
 
 class ErrorHandlerFactory
 {
     public function __invoke(ContainerInterface $container) : ErrorHandler
     {
-        $generator = $container->has(ErrorResponseGenerator::class)
-            ? $container->get(ErrorResponseGenerator::class)
+        $generator = $container->has(\Mezzio\Middleware\ErrorResponseGenerator::class)
+            ? $container->get(\Mezzio\Middleware\ErrorResponseGenerator::class)
             : null;
 
         return new ErrorHandler($container->get(ResponseInterface::class), $generator);
