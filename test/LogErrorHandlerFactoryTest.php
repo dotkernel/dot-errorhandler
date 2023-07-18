@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dot\Tests;
+namespace DotTest\ErrorHandler;
 
 use Dot\ErrorHandler\LogErrorHandler;
 use Dot\ErrorHandler\LogErrorHandlerFactory;
@@ -29,12 +29,14 @@ class LogErrorHandlerFactoryTest extends TestCase
      */
     public function setUp(): void
     {
-        parent::setUp();
-
         $this->container       = $this->createMock(ContainerInterface::class);
         $this->responseFactory = fn(): ResponseInterface => $this->createMock(ResponseInterface::class);
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function testWillNotCreateWithoutConfig(): void
     {
         $this->container->method('get')

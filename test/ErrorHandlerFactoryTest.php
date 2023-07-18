@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dot\Tests;
+namespace DotTest\ErrorHandler;
 
 use Dot\ErrorHandler\ErrorHandler;
 use Dot\ErrorHandler\ErrorHandlerFactory;
@@ -26,8 +26,6 @@ class ErrorHandlerFactoryTest extends TestCase
      */
     public function setUp(): void
     {
-        parent::setUp();
-
         $this->container       = $this->createMock(ContainerInterface::class);
         $this->responseFactory = fn(): ResponseInterface => $this->createMock(ResponseInterface::class);
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Dot\Tests;
+namespace DotTest\ErrorHandler;
 
 use Dot\ErrorHandler\ConfigProvider;
 use Dot\ErrorHandler\ErrorHandler;
@@ -16,8 +16,6 @@ class ConfigProviderTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->config = (new ConfigProvider())();
     }
 

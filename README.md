@@ -3,7 +3,7 @@
 Logging Error Handler for DotKernel
 
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler)
-![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/3.2.0)
+![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/3.3.0)
 
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/network)
@@ -11,6 +11,8 @@ Logging Error Handler for DotKernel
 [![GitHub license](https://img.shields.io/github/license/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/blob/3.0/LICENSE)
 
 [![SymfonyInsight](https://insight.symfony.com/projects/cf1f8d89-f230-4157-bc8b-7cce20c75454/big.svg)](https://insight.symfony.com/projects/cf1f8d89-f230-4157-bc8b-7cce20c75454)
+
+
 ## Adding the error handler
 
 * Add the composer package:
