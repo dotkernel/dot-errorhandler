@@ -4,18 +4,10 @@ declare(strict_types=1);
 
 namespace Dot\ErrorHandler;
 
-use ErrorException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Throwable;
-use Laminas\Stratigility\Exception\MissingResponseException;
-
-use function error_reporting;
-use function in_array;
-use function restore_error_handler;
-use function set_error_handler;
 
 /**
  * Error handler middleware.
@@ -78,7 +70,7 @@ interface ErrorHandlerInterface extends MiddlewareInterface
      * listeners are ignored; use listeners for reporting purposes
      * only.
      */
-    public function attachListener(callable $listener) : void;
+    public function attachListener(callable $listener): void;
 
     /**
      * Middleware to handle errors and exceptions in layers it wraps.
@@ -93,5 +85,5 @@ interface ErrorHandlerInterface extends MiddlewareInterface
      * and returned instead; otherwise, the response returned by $next is
      * used.
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface;
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface;
 }
