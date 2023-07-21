@@ -1,3 +1,6 @@
+on:
+  - push
+
 name: Codecov checks
 uses: codecov/codecov-action@v3
 env:
