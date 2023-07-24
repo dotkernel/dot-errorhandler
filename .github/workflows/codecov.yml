@@ -1,7 +1,7 @@
 on:
   - push
 
-name: Codecov checks
+name: Run Codecov checks
 
 jobs:
   code-coverage:
