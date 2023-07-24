@@ -1,5 +1,7 @@
 on:
   - push
+name: Codecov checks
+
 jobs:
   code-coverage:
     name: Code Coverage
