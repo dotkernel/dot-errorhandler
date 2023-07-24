@@ -6,7 +6,9 @@ name: Codecov checks
 jobs:
   code-coverage:
     name: Code Coverage
+
     runs-on: ${{ matrix.os }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
