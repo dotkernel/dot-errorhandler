@@ -1,4 +1,4 @@
-## 3.2.0 - 2024-02-28
+## 3.3.3 - 2024-02-28
 
 ### Changed
 * Updated dependency versions
