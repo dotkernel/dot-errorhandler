@@ -1,3 +1,20 @@
+## 3.2.0 - 2024-02-28
+
+### Changed
+* Updated dependency versions
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* Nothing
+
 ## 3.1.0 - 2020-11-02
 
 ### Changed
