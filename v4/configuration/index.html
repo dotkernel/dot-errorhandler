@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="dot-errorhandler">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v3/installation/">
+        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v4/configuration/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Installation - dot-errorhandler - DotKernel Documentation</title>
+        <title>Configuration - dot-errorhandler - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -126,13 +126,13 @@
     <div class="btn-group">
         <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
             
-                v3
+                v4
             
         </button>
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
             
                 
-                    <a href="../../v4/overview/" class="dropdown-item">
+                    <a href="../overview/" class="dropdown-item active">
                         
                             v4 (latest)
                         
@@ -140,7 +140,7 @@
                 
             
                 
-                    <a href="../overview/" class="dropdown-item active">
+                    <a href="../../v3/overview/" class="dropdown-item">
                         
                             v3
                         
@@ -175,7 +175,7 @@
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Installation</li>
+                    <li class="breadcrumb-item active" aria-current="page">Configuration</li>
                 
             
         </ol>
@@ -200,14 +200,6 @@
 
                 
                 
-
-                    
-                    
-                
-            
-
-                
-                
                     
                         
 <li class="subnavigation__list-item ">
@@ -216,16 +208,24 @@
 
                     
                         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Installation</a>
+<li class="subnavigation__list-item ">
+    <a href="../installation/" class="subnavigation__link">Installation</a>
 </li>
 
                     
                         
-<li class="subnavigation__list-item ">
-    <a href="../configuration/" class="subnavigation__link">Configuration</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Configuration</a>
 </li>
 
+                    
+                
+            
+
+                
+                
+
+                    
                     
                 
             
@@ -248,24 +248,75 @@
                     
                     
 
-    <div class="alert alert-danger" role="alert">
-        <h4>Caution</h4>
-        <p>
-            The documentation you are viewing is for an older version of this component.<br>
-            <a href="../..">Switch to the latest (v4) version.</a>
-        </p>
-    </div>
-
 
 
 
     
     
 
-    <h1 id="installation">Installation</h1>
-<p>Install <code>dotkernel/dot-errorhandler</code> by executing the following Composer command:</p>
-<pre class="codehilite"><code>composer require dotkernel/dot-errorhandler
-</code></pre>
+    <h1 id="configuration">Configuration</h1>
+<p>Register <code>dot-errorhandler</code> in you project by adding <code>Dot\ErrorHandler\ConfigProvider::class</code> to your configuration aggregator (to <code>config/config.php</code> for example),
+and add <code>\Dot\ErrorHandler\ErrorHandlerInterface::class</code> (to <code>config/pipeline.php</code> for example) <strong>as the outermost layer of the middleware</strong> to catch all Exceptions</p>
+<ul>
+<li>Configure the error handler as shown below</li>
+</ul>
+<p>config/autoload/error-handling.global.php</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+use Dot\ErrorHandler\ErrorHandlerInterface;
+use Dot\ErrorHandler\LogErrorHandler;
+use Dot\ErrorHandler\ErrorHandler;
+
+return [
+    'dependencies' =&gt; [
+        'aliases' =&gt; [
+            ErrorHandlerInterface::class =&gt; LogErrorHandler::class,
+        ]
+
+    ],
+    'dot-errorhandler' =&gt; [
+        'loggerEnabled' =&gt; true,
+        'logger' =&gt; 'dot-log.default_logger'
+    ]
+];</code></pre>
+<p>A configuration example for the default logger can be found in <code>config/log.global.php.dist</code>.</p>
+<p>When declaring the <code>ErrorHandlerInterface</code> alias you can choose whether to log or not:</p>
+<ul>
+<li>for the simple Zend Expressive handler user <code>ErrorHandler</code></li>
+<li>for logging use <code>LogErrorHandler</code></li>
+</ul>
+<p>The class <code>Dot\ErrorHandler\ErrorHandler</code> is the same as the Zend Expressive error handling class
+the only difference being the removal of the <code>final</code> statement for making extension possible.</p>
+<p>The class <code>Dot\ErrorHandler\LogErrorHandler</code> is <code>Dot\ErrorHandler\ErrorHandler</code> with
+added logging support.</p>
+<p>As a note: both <code>LogErrorHandler</code> and <code>ErrorHandler</code> have factories declared in the
+package's <code>ConfigProvider</code>. If you need a custom ErrorHandler it must have a factory
+declared in the config, as in the example.</p>
+<p>Example:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+use Dot\ErrorHandler\ErrorHandlerInterface;
+use Custom\MyErrorHandler;
+use Custom\MyErrorHandlerFactory;
+
+
+return [
+    'dependencies' =&gt; [
+        'factories' =&gt; [
+            MyErrorHandler::class =&gt; MyCustomHandlerFactory::class,
+        ],
+
+        'aliases' =&gt; [
+            ErrorHandlerInterface::class =&gt; MyErrorHandler::class,
+        ]
+
+    ],
+    'dot-errorhandler' =&gt; [
+        'loggerEnabled' =&gt; true,
+        'logger' =&gt; 'dot-log.default_logger'
+    ]
+];</code></pre>
+<p>Config examples can be found in this project's <code>config</code> directory.</p>
 
 
 
@@ -275,10 +326,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../overview/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../installation/">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Overview
+                    Installation
                 </a>
             
         </li>
@@ -286,9 +337,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../configuration/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../v3/overview/">
                     <small class="page-nav__label">Next</small>
-                    Configuration
+                    Overview
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

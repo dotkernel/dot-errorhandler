@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="dot-errorhandler">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v3/installation/">
+        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v4/overview/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Installation - dot-errorhandler - DotKernel Documentation</title>
+        <title>Overview - dot-errorhandler - DotKernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -126,13 +126,13 @@
     <div class="btn-group">
         <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
             
-                v3
+                v4
             
         </button>
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
             
                 
-                    <a href="../../v4/overview/" class="dropdown-item">
+                    <a href="./" class="dropdown-item active">
                         
                             v4 (latest)
                         
@@ -140,7 +140,7 @@
                 
             
                 
-                    <a href="../overview/" class="dropdown-item active">
+                    <a href="../../v3/overview/" class="dropdown-item">
                         
                             v3
                         
@@ -175,7 +175,7 @@
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Installation</li>
+                    <li class="breadcrumb-item active" aria-current="page">Overview</li>
                 
             
         </ol>
@@ -200,24 +200,16 @@
 
                 
                 
-
-                    
-                    
-                
-            
-
-                
-                
                     
                         
-<li class="subnavigation__list-item ">
-    <a href="../overview/" class="subnavigation__link">Overview</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Overview</a>
 </li>
 
                     
                         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Installation</a>
+<li class="subnavigation__list-item ">
+    <a href="../installation/" class="subnavigation__link">Installation</a>
 </li>
 
                     
@@ -226,6 +218,14 @@
     <a href="../configuration/" class="subnavigation__link">Configuration</a>
 </li>
 
+                    
+                
+            
+
+                
+                
+
+                    
                     
                 
             
@@ -248,24 +248,18 @@
                     
                     
 
-    <div class="alert alert-danger" role="alert">
-        <h4>Caution</h4>
-        <p>
-            The documentation you are viewing is for an older version of this component.<br>
-            <a href="../..">Switch to the latest (v4) version.</a>
-        </p>
-    </div>
-
 
 
 
     
     
 
-    <h1 id="installation">Installation</h1>
-<p>Install <code>dotkernel/dot-errorhandler</code> by executing the following Composer command:</p>
-<pre class="codehilite"><code>composer require dotkernel/dot-errorhandler
-</code></pre>
+    <h1 id="overview">Overview</h1>
+<p><code>dot-errorhandler</code> is DotKernel's logging error handler, providing two options:</p>
+<ul>
+<li><code>Dot\ErrorHandler\ErrorHandler</code>, same as the Zend Expressive error handling class with the only difference being the removal of the <code>final</code> statement for making extension possible</li>
+<li><code>Dot\ErrorHandler\LogErrorHandler</code> adds logging support to the default <code>ErrorHandler</code> class</li>
+</ul>
 
 
 
@@ -275,10 +269,10 @@
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../overview/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../..">
                     <small class="page-nav__label">Previous</small>
                     <i class="bi bi-chevron-left"></i>
-                    Overview
+                    Home
                 </a>
             
         </li>
@@ -286,9 +280,9 @@
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../configuration/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../installation/">
                     <small class="page-nav__label">Next</small>
-                    Configuration
+                    Installation
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
