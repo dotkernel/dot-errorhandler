@@ -57,7 +57,7 @@ class ErrorHandlerFactoryTest extends TestCase
     {
         $this->container->method('has')
             ->with(ErrorResponseGenerator::class)
-            ->willReturn($this->createMock(ErrorResponseGenerator::class));
+            ->willReturn(true);
 
         $this->container->method('get')
             ->willReturnMap([

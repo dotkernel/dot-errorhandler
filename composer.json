@@ -26,8 +26,8 @@
         }
     },
     "require": {
-        "php": "~8.2.0 || ~8.3.0",
-        "dotkernel/dot-log": "^4.0.2",
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+        "dotkernel/dot-log": "^4.1.0",
         "laminas/laminas-diactoros": "^3.3",
         "laminas/laminas-stratigility": "^3.11",
         "mezzio/mezzio": "^3.19",
@@ -35,7 +35,7 @@
         "psr/http-server-middleware": "^1.0"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "^2.5",
+        "laminas/laminas-coding-standard": "^3.0",
         "mikey179/vfsstream": "^1.6.7",
         "phpunit/phpunit": "^10.5",
         "vimeo/psalm": "^5.22"
@@ -54,7 +54,8 @@
     "scripts": {
         "check": [
             "@cs-check",
-            "@test"
+            "@test",
+            "@static-analysis"
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",

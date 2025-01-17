@@ -16,6 +16,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -194,6 +195,9 @@ class LogErrorHandlerTest extends TestCase
         $this->assertSame($this->response, $result);
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     */
     public function testHandleThrowableLogsError(): void
     {
         $config = $this->getConfig();
