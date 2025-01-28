@@ -1,11 +1,10 @@
 # Configuration
 
-Register `dot-errorhandler` in you project by adding `Dot\ErrorHandler\ConfigProvider::class` to your configuration aggregator (to `config/config.php` for example),
-and add `\Dot\ErrorHandler\ErrorHandlerInterface::class` (to `config/pipeline.php` for example) **as the outermost layer of the middleware** to catch all Exceptions
+Register `dot-errorhandler` in you project by adding `Dot\ErrorHandler\ConfigProvider::class` to your configuration aggregator (to `config/config.php` for example), and add `\Dot\ErrorHandler\ErrorHandlerInterface::class` (to `config/pipeline.php` for example) **as the outermost layer of the middleware** to catch all exceptions.
 
-- Configure the error handler as shown below
+Configure the error handler as shown below.
 
-config/autoload/error-handling.global.php
+In **config/autoload/error-handling.global.php**:
 
 ```php
 <?php
@@ -35,17 +34,12 @@ When declaring the `ErrorHandlerInterface` alias you can choose whether to log o
 - for the simple Zend Expressive handler user `ErrorHandler`
 - for logging use `LogErrorHandler`
 
-The class `Dot\ErrorHandler\ErrorHandler` is the same as the Zend Expressive error handling class
-the only difference being the removal of the `final` statement for making extension possible.
+The class `Dot\ErrorHandler\ErrorHandler` is the same as the Zend Expressive error handling class the only difference being the removal of the `final` statement for making extension possible.
 
-The class `Dot\ErrorHandler\LogErrorHandler` is `Dot\ErrorHandler\ErrorHandler` with
-added logging support.
+The class `Dot\ErrorHandler\LogErrorHandler` is `Dot\ErrorHandler\ErrorHandler` with added logging support.
 
-As a note: both `LogErrorHandler` and `ErrorHandler` have factories declared in the
-package's `ConfigProvider`. If you need a custom ErrorHandler it must have a factory
-declared in the config, as in the example.
-
-Example:
+As a note: both `LogErrorHandler` and `ErrorHandler` have factories declared in the package's `ConfigProvider`.
+If you need a custom ErrorHandler it must have a factory declared in the config, as in the below example:
 
 ```php
 <?php
