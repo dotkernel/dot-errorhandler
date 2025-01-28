@@ -265,12 +265,9 @@
     
 
     <h1 id="configuration">Configuration</h1>
-<p>Register <code>dot-errorhandler</code> in you project by adding <code>Dot\ErrorHandler\ConfigProvider::class</code> to your configuration aggregator (to <code>config/config.php</code> for example),
-and add <code>\Dot\ErrorHandler\ErrorHandlerInterface::class</code> (to <code>config/pipeline.php</code> for example) <strong>as the outermost layer of the middleware</strong> to catch all Exceptions</p>
-<ul>
-<li>Configure the error handler as shown below</li>
-</ul>
-<p>config/autoload/error-handling.global.php</p>
+<p>Register <code>dot-errorhandler</code> in you project by adding <code>Dot\ErrorHandler\ConfigProvider::class</code> to your configuration aggregator (to <code>config/config.php</code> for example), and add <code>\Dot\ErrorHandler\ErrorHandlerInterface::class</code> (to <code>config/pipeline.php</code> for example) <strong>as the outermost layer of the middleware</strong> to catch all exceptions.</p>
+<p>Configure the error handler as shown below.</p>
+<p>In <strong>config/autoload/error-handling.global.php</strong>:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 
 use Dot\ErrorHandler\ErrorHandlerInterface;
@@ -295,14 +292,10 @@ return [
 <li>for the simple Zend Expressive handler user <code>ErrorHandler</code></li>
 <li>for logging use <code>LogErrorHandler</code></li>
 </ul>
-<p>The class <code>Dot\ErrorHandler\ErrorHandler</code> is the same as the Zend Expressive error handling class
-the only difference being the removal of the <code>final</code> statement for making extension possible.</p>
-<p>The class <code>Dot\ErrorHandler\LogErrorHandler</code> is <code>Dot\ErrorHandler\ErrorHandler</code> with
-added logging support.</p>
-<p>As a note: both <code>LogErrorHandler</code> and <code>ErrorHandler</code> have factories declared in the
-package's <code>ConfigProvider</code>. If you need a custom ErrorHandler it must have a factory
-declared in the config, as in the example.</p>
-<p>Example:</p>
+<p>The class <code>Dot\ErrorHandler\ErrorHandler</code> is the same as the Zend Expressive error handling class the only difference being the removal of the <code>final</code> statement for making extension possible.</p>
+<p>The class <code>Dot\ErrorHandler\LogErrorHandler</code> is <code>Dot\ErrorHandler\ErrorHandler</code> with added logging support.</p>
+<p>As a note: both <code>LogErrorHandler</code> and <code>ErrorHandler</code> have factories declared in the package's <code>ConfigProvider</code>.
+If you need a custom ErrorHandler it must have a factory declared in the config, as in the below example:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 
 use Dot\ErrorHandler\ErrorHandlerInterface;
@@ -426,11 +419,7 @@ return [
                 </div>
             </div>
 
-            <div class="col-md-3 pt-3">
-                <div class="footer_head">
-                    <p>Support</p>
-                </div>
-
+            <div class="col-md-3 pt-3 mt-1">
                 <ul class="support__list row">
                     <li class="support__list-item col-lg-6 mb-md-3">
                         <a href="https://github.com/dotkernel" class="support__link" title="GitHub" target="_blank">
