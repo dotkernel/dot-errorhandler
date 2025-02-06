@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Dot\ErrorHandler;
 
+use Dot\ErrorHandler\Extra\ExtraProvider;
 use Dot\Log\LoggerInterface;
 use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
@@ -27,6 +28,7 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
     /** @var callable */
     private $responseFactory;
     private LoggerInterface|null $logger;
+    private ?ExtraProvider $extraProvider;
 
     /**
      * @param callable $responseFactory A factory capable of returning an
@@ -38,13 +40,15 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
     public function __construct(
         callable $responseFactory,
         ?callable $responseGenerator = null,
-        ?LoggerInterface $logger = null
+        ?LoggerInterface $logger = null,
+        ?ExtraProvider $extraProvider = null,
     ) {
         $this->responseFactory   = function () use ($responseFactory): ResponseInterface {
             return $responseFactory();
         };
         $this->responseGenerator = $responseGenerator ?: new ErrorResponseGenerator();
         $this->logger            = $logger;
+        $this->extraProvider     = $extraProvider;
     }
 
     public function attachListener(callable $listener): void
@@ -78,18 +82,18 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
      * triggers all listeners with the same arguments (but using the response
      * returned from createErrorResponse()), and then returns the response.
      *
-     * If a valid Logger is available, the error and it's message are logged in the
+     * If a valid Logger is available, the error, and it's message are logged in the
      * configured format.
      */
-    public function handleThrowable(Throwable $e, ServerRequestInterface $request): ResponseInterface
+    public function handleThrowable(Throwable $throwable, ServerRequestInterface $request): ResponseInterface
     {
         $generator = $this->responseGenerator;
         if ($this->logger instanceof LoggerInterface) {
-            $this->logger->err($e->getMessage(), (array) $e);
+            $this->logger->err($throwable->getMessage(), $this->prepareExtra($throwable, $request));
         }
 
-        $response = $generator($e, $request, ($this->responseFactory)());
-        $this->triggerListeners($e, $request, $response);
+        $response = $generator($throwable, $request, ($this->responseFactory)());
+        $this->triggerListeners($throwable, $request, $response);
 
         return $response;
     }
@@ -125,5 +129,39 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
         foreach ($this->listeners as $listener) {
             $listener($error, $request, $response);
         }
+    }
+
+    private function prepareExtra(Throwable $throwable, ServerRequestInterface $request): array
+    {
+        $extra = [
+            'file' => $throwable->getFile(),
+            'line' => $throwable->getLine(),
+        ];
+
+        if ($this->extraProvider?->getCookie()->enabled) {
+            $extra['cookie'] = $this->extraProvider?->getCookie()->provide($request->getCookieParams());
+        }
+
+        if ($this->extraProvider?->getHeader()->enabled) {
+            $extra['header'] = $this->extraProvider?->getHeader()->provide($request->getHeaders());
+        }
+
+        if ($this->extraProvider?->getRequest()->enabled) {
+            $extra['request'] = $this->extraProvider?->getRequest()->provide($request->getParsedBody());
+        }
+
+        if ($this->extraProvider?->getServer()->enabled) {
+            $extra['server'] = $this->extraProvider?->getServer()->provide($request->getServerParams());
+        }
+
+        if ($this->extraProvider?->getSession()->enabled) {
+            $extra['session'] = $this->extraProvider?->getSession()->provide($_SESSION ?? []);
+        }
+
+        if ($this->extraProvider?->getTrace()->enabled) {
+            $extra['trace'] = $this->extraProvider?->getTrace()->provide($throwable->getTrace());
+        }
+
+        return $extra;
     }
 }
