@@ -85,15 +85,15 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
      * If a valid Logger is available, the error, and it's message are logged in the
      * configured format.
      */
-    public function handleThrowable(Throwable $throwable, ServerRequestInterface $request): ResponseInterface
+    public function handleThrowable(Throwable $e, ServerRequestInterface $request): ResponseInterface
     {
         $generator = $this->responseGenerator;
         if ($this->logger instanceof LoggerInterface) {
-            $this->logger->err($throwable->getMessage(), $this->prepareExtra($throwable, $request));
+            $this->logger->err($e->getMessage(), $this->prepareExtra($e, $request));
         }
 
-        $response = $generator($throwable, $request, ($this->responseFactory)());
-        $this->triggerListeners($throwable, $request, $response);
+        $response = $generator($e, $request, ($this->responseFactory)());
+        $this->triggerListeners($e, $request, $response);
 
         return $response;
     }
