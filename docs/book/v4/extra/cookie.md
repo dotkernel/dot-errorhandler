@@ -2,11 +2,11 @@
 
 Looking at `dot-errorhandler`'s config file, the array found at `CookieProvider::class` allows you to configure the behaviour of this provider:
 
-* **enabled**: enabled/disable this provider
-* **processor**: an array configuring the data processor to be used by the **CookieProvider**:
-  * **class**: data processor class implementing `Dot\ErrorHandler\Extra\Processor\ProcessorInterface`
-  * **replacementStrategy**: whether to replace specific cookie values completely or partially
-  * **sensitiveParameters**: an array of cookies names that may contain sensitive information so their value should be masked partially/completely
+- **enabled**: enabled/disable this provider
+- **processor**: an array configuring the data processor to be used by the **CookieProvider**:
+    - **class**: data processor class implementing `Dot\ErrorHandler\Extra\Processor\ProcessorInterface`
+    - **replacementStrategy**: whether to replace specific cookie values completely or partially
+    - **sensitiveParameters**: an array of cookies names that may contain sensitive information so their value should be masked partially/completely
 
 ## Configure provider
 
