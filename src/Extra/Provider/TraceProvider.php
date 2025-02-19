@@ -6,20 +6,14 @@ namespace Dot\ErrorHandler\Extra\Provider;
 
 use Dot\ErrorHandler\Extra\Processor\ProcessorInterface;
 
-readonly class TraceProvider
+class TraceProvider extends AbstractProvider
 {
-    public function __construct(
-        public bool $enabled = false,
-        public ?ProcessorInterface $processor = null,
-    ) {
-    }
-
-    public function provide(array $traces): array
+    public function provide(array $data): array
     {
         if ($this->processor instanceof ProcessorInterface) {
-            return $this->processor->process($traces);
+            return $this->processor->process($data);
         }
 
-        return $traces;
+        return $data;
     }
 }

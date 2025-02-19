@@ -7,12 +7,15 @@ namespace Dot\ErrorHandler\Extra\Processor;
 use function array_map;
 use function sprintf;
 
-class TraceProcessor implements ProcessorInterface
+class TraceProcessor extends AbstractProcessor
 {
     public function process(array $data): array
     {
         return array_map(
-            fn ($trace): string => sprintf(
+            /**
+             * @param string[] $trace
+             */
+            fn (array $trace): string => sprintf(
                 '%s%s%s:%d',
                 $trace['class'] ?? $trace['file'] ?? 'unknown',
                 $trace['type'] ?? '->',

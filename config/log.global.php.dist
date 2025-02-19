@@ -1,27 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
+use Dot\Log\Formatter\Json;
+use Dot\Log\Logger;
+
 return [
     'dot_log' => [
         'loggers' => [
             'default_logger' => [
                 'writers' => [
                     'FileWriter' => [
-                        'name' => 'stream',
-                        'priority' => \Dot\Log\Logger::ALERT,
+                        'name'    => 'stream',
+                        'level'   => Logger::ALERT,
                         'options' => [
                             'stream' => __DIR__ . '/../../log/error-log-{Y}-{m}-{d}.log',
                             // explicitly log all messages
-                            'filters' => [
+                            'filters'   => [
                                 'allMessages' => [
-                                    'name' => 'priority',
+                                    'name'    => 'level',
                                     'options' => [
                                         'operator' => '>=',
-                                        'priority' => \Dot\Log\Logger::EMERG,
+                                        'level'    => Logger::EMERG,
                                     ],
                                 ],
                             ],
                             'formatter' => [
-                                'name' => \Dot\Log\Formatter\Json::class,
+                                'name' => Json::class,
                             ],
                         ],
                     ],

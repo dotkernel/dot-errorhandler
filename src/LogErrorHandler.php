@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Dot\ErrorHandler;
 
 use Dot\ErrorHandler\Extra\ExtraProvider;
-use Dot\Log\LoggerInterface;
 use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function error_reporting;
@@ -27,7 +27,7 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
     private $responseGenerator;
     /** @var callable */
     private $responseFactory;
-    private LoggerInterface|null $logger;
+    private ?LoggerInterface $logger;
     private ?ExtraProvider $extraProvider;
 
     /**
@@ -89,7 +89,8 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
     {
         $generator = $this->responseGenerator;
         if ($this->logger instanceof LoggerInterface) {
-            $this->logger->err($e->getMessage(), $this->prepareExtra($e, $request));
+            $extra = $this->provideExtra($e, $request);
+            $this->logger->error($e->getMessage(), $extra);
         }
 
         $response = $generator($e, $request, ($this->responseFactory)());
@@ -131,37 +132,42 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
         }
     }
 
-    private function prepareExtra(Throwable $throwable, ServerRequestInterface $request): array
+    public function provideExtra(Throwable $throwable, ServerRequestInterface $request): array
     {
         $extra = [
             'file' => $throwable->getFile(),
             'line' => $throwable->getLine(),
         ];
 
-        if ($this->extraProvider?->getCookie()->enabled) {
+        if ($this->extraProvider?->getCookie()->isEnabled()) {
             $extra['cookie'] = $this->extraProvider?->getCookie()->provide($request->getCookieParams());
         }
 
-        if ($this->extraProvider?->getHeader()->enabled) {
+        if ($this->extraProvider?->getHeader()->isEnabled()) {
             $extra['header'] = $this->extraProvider?->getHeader()->provide($request->getHeaders());
         }
 
-        if ($this->extraProvider?->getRequest()->enabled) {
-            $extra['request'] = $this->extraProvider?->getRequest()->provide($request->getParsedBody());
+        if ($this->extraProvider?->getRequest()->isEnabled()) {
+            $extra['request'] = $this->extraProvider?->getRequest()->provide((array) $request->getParsedBody());
         }
 
-        if ($this->extraProvider?->getServer()->enabled) {
+        if ($this->extraProvider?->getServer()->isEnabled()) {
             $extra['server'] = $this->extraProvider?->getServer()->provide($request->getServerParams());
         }
 
-        if ($this->extraProvider?->getSession()->enabled) {
+        if ($this->extraProvider?->getSession()->isEnabled()) {
             $extra['session'] = $this->extraProvider?->getSession()->provide($_SESSION ?? []);
         }
 
-        if ($this->extraProvider?->getTrace()->enabled) {
+        if ($this->extraProvider?->getTrace()->isEnabled()) {
             $extra['trace'] = $this->extraProvider?->getTrace()->provide($throwable->getTrace());
         }
 
         return $extra;
+    }
+
+    public function getExtraProvider(): ?ExtraProvider
+    {
+        return $this->extraProvider;
     }
 }

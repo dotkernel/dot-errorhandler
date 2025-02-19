@@ -12,12 +12,21 @@ nav:
       - Overview: v4/overview.md
       - Installation: v4/installation.md
       - Configuration: v4/configuration.md
+      - "Log files": v4/log-files.md
+      - "Extra data":
+          - Introduction: v4/extra/introduction.md
+          - Cookie: v4/extra/cookie.md
+          - Header: v4/extra/header.md
+          - Request: v4/extra/request.md
+          - Server: v4/extra/server.md
+          - Session: v4/extra/session.md
+          - "Trace route": v4/extra/trace.md
   - v3:
       - Overview: v3/overview.md
       - Installation: v3/installation.md
       - Configuration: v3/configuration.md
 site_name: dot-errorhandler
-site_description: "DotKernel's error logging handler"
+site_description: "Dotkernel's error logging handler"
 repo_url: "https://github.com/dotkernel/dot-errorhandler"
 plugins:
   - search

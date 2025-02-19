@@ -2,6 +2,8 @@ clover.xml
 coveralls-upload.json
 .phpunit.result.cache
 .phpcs-cache
+config/log.global.php
+config/error-handling.global.php
 
 # Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template

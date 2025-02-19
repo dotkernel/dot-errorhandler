@@ -6,20 +6,14 @@ namespace Dot\ErrorHandler\Extra\Provider;
 
 use Dot\ErrorHandler\Extra\Processor\ProcessorInterface;
 
-readonly class HeaderProvider
+class HeaderProvider extends AbstractProvider
 {
-    public function __construct(
-        public bool $enabled = false,
-        public ?ProcessorInterface $processor = null,
-    ) {
-    }
-
-    public function provide(array $headers): array
+    public function provide(array $data): array
     {
         if ($this->processor instanceof ProcessorInterface) {
-            return $this->processor->process($headers);
+            return $this->processor->process($data);
         }
 
-        return $headers;
+        return $data;
     }
 }

@@ -12,13 +12,19 @@ use Dot\ErrorHandler\Extra\Provider\ServerProvider;
 use Dot\ErrorHandler\Extra\Provider\SessionProvider;
 use Dot\ErrorHandler\Extra\Provider\TraceProvider;
 
+use function array_flip;
 use function array_key_exists;
+use function array_map;
+use function assert;
 use function class_exists;
-use function is_bool;
+use function count;
+use function is_array;
 use function is_string;
 
 class ExtraProvider
 {
+    public const CONFIG_KEY = 'extraProvider';
+
     private CookieProvider $cookie;
     private HeaderProvider $header;
     private RequestProvider $request;
@@ -37,26 +43,50 @@ class ExtraProvider
             'trace'   => TraceProvider::class,
         ];
 
-        foreach ($extras as $logKey => $logClass) {
-            $enabled   = false;
-            $processor = null;
-            if (array_key_exists($logClass, $options)) {
-                if (isset($options[$logClass]['enabled']) && is_bool($options[$logClass]['enabled'])) {
-                    $enabled = $options[$logClass]['enabled'];
-                }
-                if (
-                    isset($options[$logClass]['processor'])
-                    && is_string($options[$logClass]['processor'])
-                    && class_exists($options[$logClass]['processor'])
-                ) {
-                    $processor = new $options[$logClass]['processor']();
-                    if (! $processor instanceof ProcessorInterface) {
-                        $processor = null;
-                    }
-                }
+        foreach ($extras as $extraKey => $extraClass) {
+            if (
+                ! array_key_exists($extraClass, $options)
+                || ! array_key_exists('enabled', $options[$extraClass])
+                || $options[$extraClass]['enabled'] === false
+            ) {
+                $this->$extraKey = new $extraClass(false);
+                continue;
             }
 
-            $this->$logKey = new $logClass($enabled, $processor);
+            if (
+                ! array_key_exists('processor', $options[$extraClass])
+                || ! is_array($options[$extraClass]['processor'])
+                || ! array_key_exists('class', $options[$extraClass]['processor'])
+                || ! is_string($options[$extraClass]['processor']['class'])
+                || ! class_exists($options[$extraClass]['processor']['class'])
+            ) {
+                $this->$extraKey = new $extraClass(true);
+                continue;
+            }
+
+            $sensitiveParameters = [];
+            if (
+                array_key_exists('sensitiveParameters', $options[$extraClass]['processor'])
+                && is_array($options[$extraClass]['processor']['sensitiveParameters'])
+                && count($options[$extraClass]['processor']['sensitiveParameters']) > 0
+            ) {
+                $sensitiveParameters = $options[$extraClass]['processor']['sensitiveParameters'];
+                $sensitiveParameters = array_map('strtolower', $sensitiveParameters);
+                $sensitiveParameters = array_flip($sensitiveParameters);
+            }
+
+            $replacementStrategy = ReplacementStrategy::Full;
+            if (
+                array_key_exists('replacementStrategy', $options[$extraClass]['processor'])
+                && $options[$extraClass]['processor']['replacementStrategy'] instanceof ReplacementStrategy
+            ) {
+                $replacementStrategy = $options[$extraClass]['processor']['replacementStrategy'];
+            }
+
+            $processor = new $options[$extraClass]['processor']['class']($sensitiveParameters, $replacementStrategy);
+            assert($processor instanceof ProcessorInterface);
+
+            $this->$extraKey = new $extraClass(true, $processor);
         }
     }
 

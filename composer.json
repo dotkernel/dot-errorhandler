@@ -6,18 +6,14 @@
     "homepage": "https://github.com/dotkernel/dot-errorhandler",
     "authors": [
         {
-            "name": "DotKernel Team",
+            "name": "Dotkernel Team",
             "email": "team@dotkernel.com"
         }
     ],
     "keywords": [
         "error",
         "errorhandler",
-        "factories",
-        "container",
-        "laminas",
-        "mezzio",
-        "service-manager"
+        "error_log"
     ],
     "config": {
         "sort-packages": true,
@@ -27,7 +23,7 @@
     },
     "require": {
         "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
-        "dotkernel/dot-log": "^4.1.0",
+        "dotkernel/dot-log": "^5.0",
         "laminas/laminas-diactoros": "^3.3",
         "laminas/laminas-stdlib": "^3.20",
         "laminas/laminas-stratigility": "^3.11",
