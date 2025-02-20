@@ -177,6 +177,8 @@ class LogErrorHandlerTest extends TestCase
             ])
         );
 
+        $this->serverRequest->method('getCookieParams')->willReturn([]);
+
         $extra = $logErrorHandler->provideExtra(new \Exception('test'), $this->serverRequest);
 
         $this->assertCount(8, $extra);
