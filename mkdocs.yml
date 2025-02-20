@@ -26,7 +26,7 @@ nav:
       - Installation: v3/installation.md
       - Configuration: v3/configuration.md
 site_name: dot-errorhandler
-site_description: "Dotkernel's error logging handler"
+site_description: "Dotkernel's PSR-15 compliant error handler"
 repo_url: "https://github.com/dotkernel/dot-errorhandler"
 plugins:
   - search
