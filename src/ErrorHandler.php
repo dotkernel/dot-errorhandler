@@ -8,7 +8,6 @@ use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Throwable;
 
@@ -17,7 +16,7 @@ use function in_array;
 use function restore_error_handler;
 use function set_error_handler;
 
-class ErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
+class ErrorHandler implements ErrorHandlerInterface
 {
     /** @var callable[] */
     private array $listeners = [];
