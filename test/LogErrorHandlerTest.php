@@ -178,6 +178,9 @@ class LogErrorHandlerTest extends TestCase
         );
 
         $this->serverRequest->method('getCookieParams')->willReturn([]);
+        $this->serverRequest->method('getHeader')->willReturn([]);
+        $this->serverRequest->method('getParsedBody')->willReturn([]);
+        $this->serverRequest->method('getServerParams')->willReturn([]);
 
         $extra = $logErrorHandler->provideExtra(new \Exception('test'), $this->serverRequest);
 
