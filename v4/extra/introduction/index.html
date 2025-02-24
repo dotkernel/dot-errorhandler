@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="dot-errorhandler">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v4/overview/">
+        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v4/extra/introduction/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Overview - dot-errorhandler - Dotkernel Documentation</title>
+        <title>Introduction - dot-errorhandler - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -142,7 +142,7 @@
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
             
                 
-                    <a href="./" class="dropdown-item active">
+                    <a href="../../overview/" class="dropdown-item active">
                         
                             v4 (latest)
                         
@@ -150,7 +150,7 @@
                 
             
                 
-                    <a href="../../v3/overview/" class="dropdown-item">
+                    <a href="../../../v3/overview/" class="dropdown-item">
                         
                             v3
                         
@@ -176,7 +176,7 @@
                 
 
                 
-                    <li class="breadcrumb-item"><a href="../..">dot-errorhandler</a></li>
+                    <li class="breadcrumb-item"><a href="../../..">dot-errorhandler</a></li>
 
                     
                         
@@ -184,8 +184,15 @@
                             
                         
                     
+                        
+                            
+                            
+                                <li class="breadcrumb-item">Extra data</li>
+                            
+                        
+                    
 
-                    <li class="breadcrumb-item active" aria-current="page">Overview</li>
+                    <li class="breadcrumb-item active" aria-current="page">Introduction</li>
                 
             
         </ol>
@@ -200,7 +207,7 @@
                     
     <div class="subnavigation hidden-print">
 <!--        <h4 class="subnavigation__title">-->
-<!--            <a href="../..">dot-errorhandler</a>-->
+<!--            <a href="../../..">dot-errorhandler</a>-->
 <!--        </h4>-->
 
         <h5 class="subnavigation__title">Table of Contents</h5>
@@ -212,26 +219,26 @@
                 
                     
                         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Overview</a>
+<li class="subnavigation__list-item ">
+    <a href="../../overview/" class="subnavigation__link">Overview</a>
 </li>
 
                     
                         
 <li class="subnavigation__list-item ">
-    <a href="../installation/" class="subnavigation__link">Installation</a>
+    <a href="../../installation/" class="subnavigation__link">Installation</a>
 </li>
 
                     
                         
 <li class="subnavigation__list-item ">
-    <a href="../configuration/" class="subnavigation__link">Configuration</a>
+    <a href="../../configuration/" class="subnavigation__link">Configuration</a>
 </li>
 
                     
                         
 <li class="subnavigation__list-item ">
-    <a href="../log-files/" class="subnavigation__link">Log files</a>
+    <a href="../../log-files/" class="subnavigation__link">Log files</a>
 </li>
 
                     
@@ -266,44 +273,44 @@
     <ul class="subnavigation__list collapse" id="extra-data">
         
         
-<li class="subnavigation__list-item ">
-    <a href="../extra/introduction/" class="subnavigation__link">Introduction</a>
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Introduction</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/cookie/" class="subnavigation__link">Cookie</a>
+    <a href="../cookie/" class="subnavigation__link">Cookie</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/header/" class="subnavigation__link">Header</a>
+    <a href="../header/" class="subnavigation__link">Header</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/request/" class="subnavigation__link">Request</a>
+    <a href="../request/" class="subnavigation__link">Request</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/server/" class="subnavigation__link">Server</a>
+    <a href="../server/" class="subnavigation__link">Server</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/session/" class="subnavigation__link">Session</a>
+    <a href="../session/" class="subnavigation__link">Session</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/trace/" class="subnavigation__link">Trace route</a>
+    <a href="../trace/" class="subnavigation__link">Trace route</a>
 </li>
 
         
@@ -338,11 +345,7 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#badges" class="toc__link nav-link">Badges</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#features" class="toc__link nav-link">Features</a>
+                    <a href="#configuring-extra-data" class="toc__link nav-link">Configuring extra data</a>
                 </li>
             
             </ul>
@@ -360,27 +363,39 @@
 
     
     
+<!--        <h2 class="chapter__headline text-black-50">Extra data</h2>-->
+    
 
-    <h1 id="overview">Overview</h1>
-<p>dot-errorhandler is Dotkernel's PSR-15 compliant error handler.</p>
-<h2 id="badges">Badges</h2>
-<p><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler" />
-<img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.1.1" /></p>
-<p><a href="https://github.com/dotkernel/dot-errorhandler/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/blob/4.1/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/dotkernel/dot-errorhandler" /></a></p>
-<p><a href="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml"><img alt="Build Static" src="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml/badge.svg?branch=4.1" /></a>
-<a href="https://codecov.io/gh/dotkernel/dot-errorhandler"><img alt="codecov" src="https://codecov.io/gh/dotkernel/dot-errorhandler/branch/4.0/graph/badge.svg?token=0KIJARS5RS" /></a></p>
-<h2 id="features">Features</h2>
-<p>This package provides two features:</p>
+    <h1 id="extra-data">Extra data</h1>
+<p><code>dot-errorhandler</code> provides the following data:</p>
 <ul>
-<li><code>Dot\ErrorHandler\ErrorHandler</code>, same as the Zend Expressive error handling class with the only difference being the removal of the <code>final</code> statement for making extension possible</li>
-<li><code>Dot\ErrorHandler\LogErrorHandler</code> adds logging support to the default <code>ErrorHandler</code> class</li>
+<li><strong>cookie</strong>: an array containing the request cookies</li>
+<li><strong>header</strong>: an array containing the request headers</li>
+<li><strong>request</strong>: an array containing the request body (<strong>\$_PATCH</strong>/<strong>\$_POST</strong>/<strong>\$_PUT</strong>)</li>
+<li><strong>server</strong>: an array containing the <strong>\$_SERVER</strong> values</li>
+<li><strong>session</strong>: an array containing the <strong>\$_SESSION</strong> values</li>
+<li><strong>trace</strong>: an array containing the full stack trace of the request</li>
 </ul>
+<h2 id="configuring-extra-data">Configuring extra data</h2>
+<p>At this point, you should already have <code>dot-errorhandler</code> configured.
+If not, proceed to the <a href="../../configuration/">Configuration</a> page and when you're done, return to this page.</p>
+<p>In order start logging one or more of the above data, we first need to enable them from the package's config file.
+Open the config file and under <code>dot-errorhandler</code> locate the <code>ExtraProvider::CONFIG_KEY</code> key.
+There you will find 6 associative arrays, each array representing a set of data this package can provide:</p>
+<ul>
+<li><strong>CookieProvider::class</strong>: request cookie information - <a href="../cookie/">how to use</a></li>
+<li><strong>HeaderProvider::class</strong>: request header information - <a href="../header/">how to use</a></li>
+<li><strong>RequestProvider::class</strong>: request body contents - <a href="../request/">how to use</a></li>
+<li><strong>ServerProvider::class</strong>: server information - <a href="../server/">how to use</a></li>
+<li><strong>SessionProvider::class</strong>: session contents - <a href="../session/">how to use</a></li>
+<li><strong>TraceProvider::class</strong>: trace route - <a href="../trace/">how to use</a></li>
+</ul>
+<p>These providers and their configuration values are all optional.
+If any of them is missing from the config file, the provider simply stays disabled and code execution continues normally.
+Invalid configuration values are simply ignored, because the purpose of these providers is to log the extra data if possible, but not to interfere with the app logic.
+That's why it does not throw errors on missing/invalid config values.</p>
 <blockquote>
-<p>Versions <strong>&gt;=4.0.0</strong> and <strong>&lt;4.1.0</strong> use laminas/laminas-servicemanager <strong>3.x</strong></p>
-<p>Versions <strong>&gt;=4.1.0</strong> use laminas/laminas-servicemanager <strong>4.x</strong></p>
+<p>By default, <code>*Provider</code> classes are used in fall-through mode; without a processor, they just return the unaltered data they were given.</p>
 </blockquote>
 
 
@@ -391,9 +406,9 @@
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../..">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../log-files/">
                     <i class="bi bi-chevron-left"></i>
-                    Home
+                    Log files
                 </a>
             
         </li>
@@ -401,8 +416,8 @@
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../installation/">
-                    Installation
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../cookie/">
+                    Cookie
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
@@ -521,7 +536,7 @@
 </footer>
 
         <script>
-            let base_url = '../..',
+            let base_url = '../../..',
                 project  = "packages",
                 siteName = 'dot-errorhandler';
 

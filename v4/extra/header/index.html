@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="dot-errorhandler">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v4/overview/">
+        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v4/extra/header/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Overview - dot-errorhandler - Dotkernel Documentation</title>
+        <title>Header - dot-errorhandler - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -142,7 +142,7 @@
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
             
                 
-                    <a href="./" class="dropdown-item active">
+                    <a href="../../overview/" class="dropdown-item active">
                         
                             v4 (latest)
                         
@@ -150,7 +150,7 @@
                 
             
                 
-                    <a href="../../v3/overview/" class="dropdown-item">
+                    <a href="../../../v3/overview/" class="dropdown-item">
                         
                             v3
                         
@@ -176,7 +176,7 @@
                 
 
                 
-                    <li class="breadcrumb-item"><a href="../..">dot-errorhandler</a></li>
+                    <li class="breadcrumb-item"><a href="../../..">dot-errorhandler</a></li>
 
                     
                         
@@ -184,8 +184,15 @@
                             
                         
                     
+                        
+                            
+                            
+                                <li class="breadcrumb-item">Extra data</li>
+                            
+                        
+                    
 
-                    <li class="breadcrumb-item active" aria-current="page">Overview</li>
+                    <li class="breadcrumb-item active" aria-current="page">Header</li>
                 
             
         </ol>
@@ -200,7 +207,7 @@
                     
     <div class="subnavigation hidden-print">
 <!--        <h4 class="subnavigation__title">-->
-<!--            <a href="../..">dot-errorhandler</a>-->
+<!--            <a href="../../..">dot-errorhandler</a>-->
 <!--        </h4>-->
 
         <h5 class="subnavigation__title">Table of Contents</h5>
@@ -212,26 +219,26 @@
                 
                     
                         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Overview</a>
+<li class="subnavigation__list-item ">
+    <a href="../../overview/" class="subnavigation__link">Overview</a>
 </li>
 
                     
                         
 <li class="subnavigation__list-item ">
-    <a href="../installation/" class="subnavigation__link">Installation</a>
+    <a href="../../installation/" class="subnavigation__link">Installation</a>
 </li>
 
                     
                         
 <li class="subnavigation__list-item ">
-    <a href="../configuration/" class="subnavigation__link">Configuration</a>
+    <a href="../../configuration/" class="subnavigation__link">Configuration</a>
 </li>
 
                     
                         
 <li class="subnavigation__list-item ">
-    <a href="../log-files/" class="subnavigation__link">Log files</a>
+    <a href="../../log-files/" class="subnavigation__link">Log files</a>
 </li>
 
                     
@@ -267,43 +274,43 @@
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/introduction/" class="subnavigation__link">Introduction</a>
+    <a href="../introduction/" class="subnavigation__link">Introduction</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/cookie/" class="subnavigation__link">Cookie</a>
+    <a href="../cookie/" class="subnavigation__link">Cookie</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Header</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/header/" class="subnavigation__link">Header</a>
+    <a href="../request/" class="subnavigation__link">Request</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/request/" class="subnavigation__link">Request</a>
+    <a href="../server/" class="subnavigation__link">Server</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/server/" class="subnavigation__link">Server</a>
+    <a href="../session/" class="subnavigation__link">Session</a>
 </li>
 
         
         
 <li class="subnavigation__list-item ">
-    <a href="../extra/session/" class="subnavigation__link">Session</a>
-</li>
-
-        
-        
-<li class="subnavigation__list-item ">
-    <a href="../extra/trace/" class="subnavigation__link">Trace route</a>
+    <a href="../trace/" class="subnavigation__link">Trace route</a>
 </li>
 
         
@@ -338,11 +345,23 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#badges" class="toc__link nav-link">Badges</a>
+                    <a href="#configure-provider" class="toc__link nav-link">Configure provider</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#features" class="toc__link nav-link">Features</a>
+                    <a href="#configure-processor" class="toc__link nav-link">Configure processor</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#why-should-i-use-a-processor" class="toc__link nav-link">Why should I use a processor</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#special-case" class="toc__link nav-link">Special case</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#custom-processor" class="toc__link nav-link">Custom processor</a>
                 </li>
             
             </ul>
@@ -360,28 +379,106 @@
 
     
     
+<!--        <h2 class="chapter__headline text-black-50">Extra data</h2>-->
+    
 
-    <h1 id="overview">Overview</h1>
-<p>dot-errorhandler is Dotkernel's PSR-15 compliant error handler.</p>
-<h2 id="badges">Badges</h2>
-<p><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler" />
-<img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.1.1" /></p>
-<p><a href="https://github.com/dotkernel/dot-errorhandler/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/blob/4.1/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/dotkernel/dot-errorhandler" /></a></p>
-<p><a href="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml"><img alt="Build Static" src="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml/badge.svg?branch=4.1" /></a>
-<a href="https://codecov.io/gh/dotkernel/dot-errorhandler"><img alt="codecov" src="https://codecov.io/gh/dotkernel/dot-errorhandler/branch/4.0/graph/badge.svg?token=0KIJARS5RS" /></a></p>
-<h2 id="features">Features</h2>
-<p>This package provides two features:</p>
+    <h1 id="log-header-data">Log header data</h1>
+<p>Looking at <code>dot-errorhandler</code>'s config file, the array found at <code>HeaderProvider::class</code> allows you to configure the behaviour of this provider:</p>
 <ul>
-<li><code>Dot\ErrorHandler\ErrorHandler</code>, same as the Zend Expressive error handling class with the only difference being the removal of the <code>final</code> statement for making extension possible</li>
-<li><code>Dot\ErrorHandler\LogErrorHandler</code> adds logging support to the default <code>ErrorHandler</code> class</li>
+<li><strong>enabled</strong>: enabled/disable this provider</li>
+<li><strong>processor</strong>: an array configuring the data processor to be used by the <strong>HeaderProvider</strong>:<ul>
+<li><strong>class</strong>: data processor class implementing <code>Dot\ErrorHandler\Extra\Processor\ProcessorInterface</code></li>
+<li><strong>replacementStrategy</strong>: whether to replace specific header values completely or partially</li>
+<li><strong>sensitiveParameters</strong>: an array of headers names that may contain sensitive information so their value should be masked partially/completely</li>
 </ul>
+</li>
+</ul>
+<h2 id="configure-provider">Configure provider</h2>
+<p>By default, <strong>HeaderProvider</strong> is disabled.
+It can be enabled only by setting <strong>enabled</strong> to <strong>true</strong>.</p>
+<p>If <strong>enabled</strong> is set to <strong>true</strong>, your log file will contain an additional field under the <code>extra</code> key, called <code>header</code>.
+If <strong>enabled</strong> is set to <strong>false</strong>, no additional field is added under the <code>extra</code> key.</p>
+<h2 id="configure-processor">Configure processor</h2>
+<p>From here, we assume that <strong>enabled</strong> is set to <strong>true</strong>.</p>
+<p>If <strong>processor</strong> is missing/empty, the processor is ignored the provider will log the raw data available.
+If <strong>processor</strong> is specified, but <strong>class</strong> is missing/invalid, the processor is ignored and the provider will log the raw data available.</p>
+<p>From here, we assume that <strong>processor</strong>.<strong>class</strong> is valid.</p>
+<h3 id="replacement-strategy">Replacement strategy</h3>
+<p>This value should be an instance of <code>Dot\ErrorHandler\Extra\ReplacementStrategy</code>.</p>
+<p>If <strong>replacementStrategy</strong> is missing/invalid, the default <strong>replacementStrategy</strong> is used, which is <code>ReplacementStrategy::Full</code>.
+Else, the value used should be one of:</p>
+<ul>
+<li><code>ReplacementStrategy::Partial</code> for half-string replacements (e.g.: "abcdef" becomes "abc***")</li>
+<li><code>ReplacementStrategy::Full</code> for full-string replacements (e.g.: "abcdef" becomes "<strong>*</strong>*")</li>
+</ul>
+<h3 id="sensitive-parameters">Sensitive parameters</h3>
+<p>If <strong>sensitiveParameters</strong> is missing/empty, the processor is ignored the provider will log the raw data available.
+This is because without a set of <strong>sensitiveParameters</strong>, the processor is unable to determine which key needs to be processed or left untouched.
+When specifying the array of <strong>sensitiveParameters</strong>, there are two possibilities:</p>
+<ul>
+<li>use the constant <code>ProcessorInterface::ALL</code>, meaning alter all header values using the strategy specified by the <strong>replacementStrategy</strong></li>
+</ul>
+<pre class="highlight"><code class="language-php">'sensitiveParameters' =&gt; [
+    Dot\ErrorHandler\Extra\Processor\ProcessorInterface::ALL,
+],</code></pre>
+<ul>
+<li>use exact strings to list the headers for which the values should be altered using the strategy specified by the <strong>replacementStrategy</strong></li>
+</ul>
+<pre class="highlight"><code class="language-php">'sensitiveParameters' =&gt; [
+    'Authorization',
+],</code></pre>
 <blockquote>
-<p>Versions <strong>&gt;=4.0.0</strong> and <strong>&lt;4.1.0</strong> use laminas/laminas-servicemanager <strong>3.x</strong></p>
-<p>Versions <strong>&gt;=4.1.0</strong> use laminas/laminas-servicemanager <strong>4.x</strong></p>
+<p><strong>HeaderProcessor</strong> uses EXACT header name lookups.
+In order to alter the value of a header, you need to specify the exact header name.</p>
+<p>The config <code>sensitiveParameters</code> is case-insensitive.</p>
 </blockquote>
+<h2 id="why-should-i-use-a-processor">Why should I use a processor</h2>
+<p>Consider the following request headers:</p>
+<pre class="highlight"><code class="language-text">[
+    "Authorization" =&gt; "Bearer 63560eb4398d21024b32f2fb45dacca512db0bc725149e1371f493063a03e687",
+    "Content-Type" =&gt; "application/json",
+]</code></pre>
+<p>Without a <strong>HeaderProcessor</strong>, the plain text auth token would end up saved in the log file:</p>
+<pre class="highlight"><code class="language-text">..."extra":{"file":"/path/to/some/class.php","line":314,"header":{"Authorization":"Bearer 63560eb4398d21024b32f2fb45dacca512db0bc725149e1371f493063a03e687","Content-Type":"application/json"},...</code></pre>
+<p>But, with a properly configured <strong>HeaderProcessor</strong>:</p>
+<pre class="highlight"><code class="language-php">'processor' =&gt; [
+    'class'               =&gt; HeaderProcessor::class,
+    'replacementStrategy' =&gt; ReplacementStrategy::Full,
+    'sensitiveParameters' =&gt; [
+        'Authorization',
+    ],
+],</code></pre>
+<p>the logged header data becomes:</p>
+<pre class="highlight"><code class="language-text">..."extra":{"file":"/path/to/some/class.php","line":314,"header":{"Authorization":"***********************************************************************","Content-Type":"application/json"},...</code></pre>
+<h2 id="special-case">Special case</h2>
+<p>There is a special case, the <code>cookie</code> header, which is handled differently than the rest of the headers.</p>
+<p>Let's take an example of a cookie header:</p>
+<pre class="highlight"><code class="language-text">FRONTEND_SESSID=feb21b39f9c54e3a49af1f862acc8300; rememberMe=63560eb4398d21024b32f2fb45dacca512db0bc725149e1371f493063a03e687</code></pre>
+<p>If the existing <strong>HeaderProcessor</strong> is not used, then the log file will contain dangerous data that may compromise user security - in this case exposing the value of both cookies.</p>
+<blockquote>
+<p>To avoid this issue, the developer should never use <strong>HeaderProvider</strong> without a <strong>HeaderProcessor</strong> in a production environment.</p>
+</blockquote>
+<p>Depending on <strong>HeaderProvider</strong>'s configuration, <strong>HeaderProcessor</strong> will partially mask the cookie values:</p>
+<pre class="highlight"><code class="language-text">FRONTEND_SESSID=feb21b39f9c54e3a****************; rememberMe=63560eb4398d21024b32f2******************************************</code></pre>
+<p>when using <code>ReplacementStrategy::Partial</code> or completely mask the cookie values:</p>
+<pre class="highlight"><code class="language-text">FRONTEND_SESSID=********************************; rememberMe=****************************************************************</code></pre>
+<p>when using <code>ReplacementStrategy::Full</code>.</p>
+<h2 id="custom-processor">Custom processor</h2>
+<p>If the existing processor does not offer enough features, you can create a custom processor.
+The custom processor must implement <code>Dot\ErrorHandler\Extra\Processor\ProcessorInterface</code> or extend <code>Dot\ErrorHandler\Extra\Processor\AbstractProcessor</code>, which already implements <code>Dot\ErrorHandler\Extra\Processor\ProcessorInterface</code>.
+Once the custom processor is ready, you need to configure <strong>HeaderProvider</strong> to use it.
+For this, open <code>dot-errorhandler</code>'s config file and - under <strong>HeaderProvider::class</strong> - set <strong>processor</strong>.<strong>class</strong> to the class string of your custom processor:</p>
+<pre class="highlight"><code class="language-php">HeaderProvider::class  =&gt; [
+    'enabled'   =&gt; false,
+    'processor' =&gt; [
+        'class'               =&gt; CustomHeaderProcessor::class,
+        'replacementStrategy' =&gt; ReplacementStrategy::Full,
+        'sensitiveParameters' =&gt; [
+            ProcessorInterface::ALL,
+        ],
+    ],
+],</code></pre>
+<p>Using this, header data will be processed by <code>CustomHeaderProcessor</code> and logged as provided by this new processor.</p>
 
 
 
@@ -391,9 +488,9 @@
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../..">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../cookie/">
                     <i class="bi bi-chevron-left"></i>
-                    Home
+                    Cookie
                 </a>
             
         </li>
@@ -401,8 +498,8 @@
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../installation/">
-                    Installation
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../request/">
+                    Request
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
@@ -521,7 +618,7 @@
 </footer>
 
         <script>
-            let base_url = '../..',
+            let base_url = '../../..',
                 project  = "packages",
                 siteName = 'dot-errorhandler';
 
