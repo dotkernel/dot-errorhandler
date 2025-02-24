@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace DotTest\ErrorHandler;
 
+use Dot\ErrorHandler\Extra\ExtraProvider;
 use Dot\ErrorHandler\LogErrorHandler;
 use Dot\ErrorHandler\LogErrorHandlerFactory;
+use InvalidArgumentException;
 use Mezzio\Middleware\ErrorResponseGenerator;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -20,7 +22,7 @@ use function sprintf;
 
 class LogErrorHandlerFactoryTest extends TestCase
 {
-    private ContainerInterface|MockObject $container;
+    private ContainerInterface&MockObject $container;
     /** @var callable $responseFactory */
     private $responseFactory;
 
@@ -43,7 +45,7 @@ class LogErrorHandlerFactoryTest extends TestCase
             ->with('config')
             ->willReturn(false);
 
-        $this->expectException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf('\'[%s\'] not found in config', LogErrorHandlerFactory::ERROR_HANDLER_KEY)
         );
@@ -66,7 +68,7 @@ class LogErrorHandlerFactoryTest extends TestCase
                 ],
             ]);
 
-        $this->expectException('InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
                 'Logger: \'[%s\'] is enabled, but not found in config',
@@ -99,6 +101,121 @@ class LogErrorHandlerFactoryTest extends TestCase
                     'config[' . LogErrorHandlerFactory::ERROR_HANDLER_KEY
                     . '][' . LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY . ']',
                     null,
+                ],
+                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ResponseInterface::class, $this->responseFactory],
+            ]);
+
+        $result = (new LogErrorHandlerFactory())($this->container);
+        $this->assertInstanceOf(LogErrorHandler::class, $result);
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws Exception
+     * @throws NotFoundExceptionInterface
+     */
+    public function testWillCreateWithoutExtraProviderConfig(): void
+    {
+        $logger = $this->createMock(LoggerInterface::class);
+
+        $this->container->method('has')
+            ->with(ErrorResponseGenerator::class)
+            ->willReturn(true);
+
+        $this->container->method('get')
+            ->willReturnMap([
+                [
+                    'config',
+                    [
+                        LogErrorHandlerFactory::ERROR_HANDLER_KEY => [
+                            'loggerEnabled'                                  => true,
+                            LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY => 'test',
+                        ],
+                    ],
+                ],
+                [
+                    'config[' . LogErrorHandlerFactory::ERROR_HANDLER_KEY . ']['
+                    . LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY . ']',
+                    $logger,
+                ],
+                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ResponseInterface::class, $this->responseFactory],
+            ]);
+
+        $result = (new LogErrorHandlerFactory())($this->container);
+        $this->assertInstanceOf(LogErrorHandler::class, $result);
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws Exception
+     * @throws NotFoundExceptionInterface
+     */
+    public function testWillCreateWithEmptyExtraProviderConfig(): void
+    {
+        $logger = $this->createMock(LoggerInterface::class);
+
+        $this->container->method('has')
+            ->with(ErrorResponseGenerator::class)
+            ->willReturn(true);
+
+        $this->container->method('get')
+            ->willReturnMap([
+                [
+                    'config',
+                    [
+                        LogErrorHandlerFactory::ERROR_HANDLER_KEY => [
+                            'loggerEnabled'                                  => true,
+                            LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY => 'test',
+                        ],
+                        ExtraProvider::CONFIG_KEY                 => [],
+                    ],
+                ],
+                [
+                    'config[' . LogErrorHandlerFactory::ERROR_HANDLER_KEY . ']['
+                    . LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY . ']',
+                    $logger,
+                ],
+                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ResponseInterface::class, $this->responseFactory],
+            ]);
+
+        $result = (new LogErrorHandlerFactory())($this->container);
+        $this->assertInstanceOf(LogErrorHandler::class, $result);
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws Exception
+     * @throws NotFoundExceptionInterface
+     */
+    public function testWillCreateWithInvalidExtraProviderConfig(): void
+    {
+        $logger = $this->createMock(LoggerInterface::class);
+
+        $this->container->method('has')
+            ->with(ErrorResponseGenerator::class)
+            ->willReturn(true);
+
+        $this->container->method('get')
+            ->willReturnMap([
+                [
+                    'config',
+                    [
+                        LogErrorHandlerFactory::ERROR_HANDLER_KEY => [
+                            'loggerEnabled'                                  => true,
+                            LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY => 'test',
+                        ],
+                        ExtraProvider::CONFIG_KEY                 => [
+                            'test' => 'test',
+                        ],
+                    ],
+                ],
+                [
+                    'config[' . LogErrorHandlerFactory::ERROR_HANDLER_KEY . ']['
+                    . LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY . ']',
+                    $logger,
                 ],
                 [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
                 [ResponseInterface::class, $this->responseFactory],

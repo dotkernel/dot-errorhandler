@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace DotTest\ErrorHandler;
 
+use Dot\ErrorHandler\Extra\ExtraProvider;
+use Dot\ErrorHandler\Extra\Provider\CookieProvider;
+use Dot\ErrorHandler\Extra\Provider\HeaderProvider;
+use Dot\ErrorHandler\Extra\Provider\RequestProvider;
+use Dot\ErrorHandler\Extra\Provider\ServerProvider;
+use Dot\ErrorHandler\Extra\Provider\SessionProvider;
+use Dot\ErrorHandler\Extra\Provider\TraceProvider;
 use Dot\ErrorHandler\LogErrorHandler;
 use Dot\ErrorHandler\LogErrorHandler as Subject;
 use Dot\Log\Formatter\Json;
 use Dot\Log\Logger;
-use Dot\Log\LoggerInterface;
 use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
 use org\bovigo\vfs\vfsStream;
@@ -21,6 +27,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 use ReflectionObject;
 use RuntimeException;
 use Throwable;
@@ -31,13 +38,13 @@ use function file_get_contents;
 class LogErrorHandlerTest extends TestCase
 {
     private Subject $subject;
-    private ServerRequestInterface|MockObject $serverRequest;
-    private ResponseInterface|MockObject $response;
+    private MockObject&ServerRequestInterface $serverRequest;
+    private MockObject&ResponseInterface $response;
     /** @var callable():ResponseInterface $responseFactory */
     private $responseFactory;
-    private StreamInterface|MockObject $body;
-    private RequestHandlerInterface|MockObject $handler;
-    private Throwable|MockObject $exception;
+    private MockObject&StreamInterface $body;
+    private MockObject&RequestHandlerInterface $handler;
+    private Throwable $exception;
     private ErrorResponseGenerator $errorResponseGenerator;
     private vfsStreamDirectory $fileSystem;
 
@@ -77,13 +84,115 @@ class LogErrorHandlerTest extends TestCase
         $callableErrorHandler = $this->subject->createErrorHandler();
         $this->expectException(ErrorException::class);
 
-        $callableErrorHandler(error_reporting(), ErrorException::class, 'testErrfile', 0);
+        $callableErrorHandler(error_reporting(), ErrorException::class, 'testErrorFile', 0);
     }
 
     public function testCreateErrorHandlerSkipsErrorsOutsideErrorReportingMask(): void
     {
         $callableErrorHandler = $this->subject->createErrorHandler();
-        $this->assertNull($callableErrorHandler(-(error_reporting() + 1), ErrorException::class, 'testErrfile', 0));
+        $this->assertNull($callableErrorHandler(-(error_reporting() + 1), ErrorException::class, 'testErrorFile', 0));
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     */
+    public function testLogErrorHandlerWillInitiateWhenExtraProviderIsMissing(): void
+    {
+        $logErrorHandler = new LogErrorHandler(
+            $this->responseFactory,
+            $this->errorResponseGenerator,
+            new Logger($this->getConfig()),
+        );
+
+        $this->assertInstanceOf(LogErrorHandler::class, $logErrorHandler);
+        $this->assertNull($logErrorHandler->getExtraProvider());
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     */
+    public function testLogErrorHandlerWillInitiateWhenExtraProviderIsNull(): void
+    {
+        $logErrorHandler = new LogErrorHandler(
+            $this->responseFactory,
+            $this->errorResponseGenerator,
+            new Logger($this->getConfig()),
+            null
+        );
+
+        $this->assertInstanceOf(LogErrorHandler::class, $logErrorHandler);
+        $this->assertNull($logErrorHandler->getExtraProvider());
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     */
+    public function testLogErrorHandlerWillInitiateWhenExtraProviderIsProvided(): void
+    {
+        $logErrorHandler = new LogErrorHandler(
+            $this->responseFactory,
+            $this->errorResponseGenerator,
+            new Logger($this->getConfig()),
+            new ExtraProvider()
+        );
+
+        $this->assertInstanceOf(LogErrorHandler::class, $logErrorHandler);
+        $this->assertInstanceOf(ExtraProvider::class, $logErrorHandler->getExtraProvider());
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     */
+    public function testLogErrorHandlerLogsWillOnlyContainDefaultKeysWhenNoProvidersAreEnabled(): void
+    {
+        $logErrorHandler = new LogErrorHandler(
+            $this->responseFactory,
+            $this->errorResponseGenerator,
+            new Logger($this->getConfig()),
+            new ExtraProvider()
+        );
+
+        $log = $logErrorHandler->provideExtra(new \Exception('test'), $this->serverRequest);
+        $this->assertCount(2, $log);
+        $this->assertArrayHasKey('file', $log);
+        $this->assertArrayHasKey('line', $log);
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     */
+    public function testLogErrorHandlerLogsWillContainExtraKeysWhenProvidersAreEnabled(): void
+    {
+        $logErrorHandler = new LogErrorHandler(
+            $this->responseFactory,
+            $this->errorResponseGenerator,
+            new Logger($this->getConfig()),
+            new ExtraProvider([
+                CookieProvider::class  => ['enabled' => true],
+                HeaderProvider::class  => ['enabled' => true],
+                RequestProvider::class => ['enabled' => true],
+                ServerProvider::class  => ['enabled' => true],
+                SessionProvider::class => ['enabled' => true],
+                TraceProvider::class   => ['enabled' => true],
+            ])
+        );
+
+        $this->serverRequest->method('getCookieParams')->willReturn([]);
+        $this->serverRequest->method('getHeaders')->willReturn([]);
+        $this->serverRequest->method('getParsedBody')->willReturn([]);
+        $this->serverRequest->method('getServerParams')->willReturn([]);
+
+        $extra = $logErrorHandler->provideExtra(new \Exception('test'), $this->serverRequest);
+
+        $this->assertCount(8, $extra);
+        $this->assertArrayHasKey('file', $extra);
+        $this->assertArrayHasKey('line', $extra);
+        $this->assertArrayHasKey('cookie', $extra);
+        $this->assertArrayHasKey('header', $extra);
+        $this->assertArrayHasKey('request', $extra);
+        $this->assertArrayHasKey('server', $extra);
+        $this->assertArrayHasKey('session', $extra);
+        $this->assertArrayHasKey('trace', $extra);
     }
 
     public function testAttachListenerDoesNotAttachDuplicates(): void
@@ -244,16 +353,16 @@ class LogErrorHandlerTest extends TestCase
         return [
             'writers' => [
                 'FileWriter' => [
-                    'name'     => 'stream',
-                    'priority' => Logger::ALERT,
-                    'options'  => [
+                    'name'    => 'stream',
+                    'level'   => Logger::ALERT,
+                    'options' => [
                         'stream'    => $this->fileSystem->url() . '/test-error-log.log',
                         'filters'   => [
                             'allMessages' => [
-                                'name'    => 'priority',
+                                'name'    => 'level',
                                 'options' => [
                                     'operator' => '>=',
-                                    'priority' => Logger::EMERG,
+                                    'level'    => Logger::EMERG,
                                 ],
                             ],
                         ],

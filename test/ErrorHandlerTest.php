@@ -24,16 +24,14 @@ use function error_reporting;
 class ErrorHandlerTest extends TestCase
 {
     private Subject $subject;
-    private ServerRequestInterface|MockObject $serverRequest;
-    private ResponseInterface|MockObject $response;
+    private MockObject&ServerRequestInterface $serverRequest;
+    private MockObject&ResponseInterface $response;
     private ErrorResponseGenerator $errorResponseGenerator;
     /** @var callable():ResponseInterface $responseFactory */
     private $responseFactory;
-    /** @var MockObject&StreamInterface */
-    private $body;
-    /** @var MockObject&RequestHandlerInterface */
-    private $handler;
-    private Throwable|MockObject $exception;
+    private MockObject&StreamInterface $body;
+    private MockObject&RequestHandlerInterface $handler;
+    private Throwable $exception;
 
     /**
      * @throws Exception

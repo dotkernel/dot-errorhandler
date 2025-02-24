@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Dot\ErrorHandler;
 
-use Dot\Log\LoggerInterface;
+use Dot\ErrorHandler\Extra\ExtraProvider;
 use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function error_reporting;
@@ -26,7 +27,8 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
     private $responseGenerator;
     /** @var callable */
     private $responseFactory;
-    private LoggerInterface|null $logger;
+    private ?LoggerInterface $logger;
+    private ?ExtraProvider $extraProvider;
 
     /**
      * @param callable $responseFactory A factory capable of returning an
@@ -38,13 +40,15 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
     public function __construct(
         callable $responseFactory,
         ?callable $responseGenerator = null,
-        ?LoggerInterface $logger = null
+        ?LoggerInterface $logger = null,
+        ?ExtraProvider $extraProvider = null,
     ) {
         $this->responseFactory   = function () use ($responseFactory): ResponseInterface {
             return $responseFactory();
         };
         $this->responseGenerator = $responseGenerator ?: new ErrorResponseGenerator();
         $this->logger            = $logger;
+        $this->extraProvider     = $extraProvider;
     }
 
     public function attachListener(callable $listener): void
@@ -78,14 +82,15 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
      * triggers all listeners with the same arguments (but using the response
      * returned from createErrorResponse()), and then returns the response.
      *
-     * If a valid Logger is available, the error and it's message are logged in the
+     * If a valid Logger is available, the error, and it's message are logged in the
      * configured format.
      */
     public function handleThrowable(Throwable $e, ServerRequestInterface $request): ResponseInterface
     {
         $generator = $this->responseGenerator;
         if ($this->logger instanceof LoggerInterface) {
-            $this->logger->err($e->getMessage(), (array) $e);
+            $extra = $this->provideExtra($e, $request);
+            $this->logger->error($e->getMessage(), $extra);
         }
 
         $response = $generator($e, $request, ($this->responseFactory)());
@@ -125,5 +130,44 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
         foreach ($this->listeners as $listener) {
             $listener($error, $request, $response);
         }
+    }
+
+    public function provideExtra(Throwable $throwable, ServerRequestInterface $request): array
+    {
+        $extra = [
+            'file' => $throwable->getFile(),
+            'line' => $throwable->getLine(),
+        ];
+
+        if ($this->extraProvider?->getCookie()->isEnabled()) {
+            $extra['cookie'] = $this->extraProvider?->getCookie()->provide($request->getCookieParams());
+        }
+
+        if ($this->extraProvider?->getHeader()->isEnabled()) {
+            $extra['header'] = $this->extraProvider?->getHeader()->provide($request->getHeaders());
+        }
+
+        if ($this->extraProvider?->getRequest()->isEnabled()) {
+            $extra['request'] = $this->extraProvider?->getRequest()->provide((array) $request->getParsedBody());
+        }
+
+        if ($this->extraProvider?->getServer()->isEnabled()) {
+            $extra['server'] = $this->extraProvider?->getServer()->provide($request->getServerParams());
+        }
+
+        if ($this->extraProvider?->getSession()->isEnabled()) {
+            $extra['session'] = $this->extraProvider?->getSession()->provide($_SESSION ?? []);
+        }
+
+        if ($this->extraProvider?->getTrace()->isEnabled()) {
+            $extra['trace'] = $this->extraProvider?->getTrace()->provide($throwable->getTrace());
+        }
+
+        return $extra;
+    }
+
+    public function getExtraProvider(): ?ExtraProvider
+    {
+        return $this->extraProvider;
     }
 }

@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class ErrorHandlerFactoryTest extends TestCase
 {
-    private ContainerInterface|MockObject $container;
+    private MockObject|ContainerInterface $container;
     /** @var callable $responseFactory */
     private $responseFactory;
 

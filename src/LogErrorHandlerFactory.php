@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Dot\ErrorHandler;
 
-use Dot\Log\LoggerInterface;
+use Dot\ErrorHandler\Extra\ExtraProvider;
 use InvalidArgumentException;
 use Mezzio\Middleware\ErrorResponseGenerator;
 use Psr\Container\ContainerExceptionInterface;
@@ -12,7 +12,10 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
+use Psr\Log\LoggerInterface;
 
+use function array_key_exists;
+use function count;
 use function is_array;
 use function sprintf;
 
@@ -51,6 +54,20 @@ class LogErrorHandlerFactory
             ? $container->get(ErrorResponseGenerator::class)
             : null;
 
-        return new LogErrorHandler($container->get(ResponseInterface::class), $generator, $logger);
+        $extraProvider = null;
+        if (
+            array_key_exists(ExtraProvider::CONFIG_KEY, $errorHandlerConfig)
+            && is_array($errorHandlerConfig[ExtraProvider::CONFIG_KEY])
+            && count($errorHandlerConfig[ExtraProvider::CONFIG_KEY]) > 0
+        ) {
+            $extraProvider = new ExtraProvider($errorHandlerConfig[ExtraProvider::CONFIG_KEY]);
+        }
+
+        return new LogErrorHandler(
+            $container->get(ResponseInterface::class),
+            $generator,
+            $logger,
+            $extraProvider
+        );
     }
 }

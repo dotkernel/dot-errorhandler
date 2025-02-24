@@ -10,6 +10,9 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 
+use function assert;
+use function is_callable;
+
 class ErrorHandlerFactory
 {
     /**
@@ -18,10 +21,15 @@ class ErrorHandlerFactory
      */
     public function __invoke(ContainerInterface $container): ErrorHandler
     {
-        $generator = $container->has(ErrorResponseGenerator::class)
-            ? $container->get(ErrorResponseGenerator::class)
-            : null;
+        $generator = null;
+        if ($container->has(ErrorResponseGenerator::class)) {
+            $generator = $container->get(ErrorResponseGenerator::class);
+            assert($generator instanceof ErrorResponseGenerator);
+        }
 
-        return new ErrorHandler($container->get(ResponseInterface::class), $generator);
+        $responseInterface = $container->get(ResponseInterface::class);
+        assert(is_callable($responseInterface));
+
+        return new ErrorHandler($responseInterface, $generator);
     }
 }
