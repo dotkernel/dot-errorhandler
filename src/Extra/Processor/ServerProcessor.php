@@ -41,7 +41,7 @@ class ServerProcessor extends AbstractProcessor
                 continue;
             }
 
-            $return[$serverKey] = $this->replace($this->replacementStrategy, $serverValue);
+            $return[$serverKey] = $this->replace($this->replacementStrategy, (string) $serverValue);
         }
 
         return $return;
