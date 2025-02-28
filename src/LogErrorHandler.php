@@ -140,27 +140,27 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
         ];
 
         if ($this->extraProvider?->getCookie()->isEnabled()) {
-            $extra['cookie'] = $this->extraProvider?->getCookie()->provide($request->getCookieParams());
+            $extra['cookie'] = $this->extraProvider->getCookie()->provide($request->getCookieParams());
         }
 
         if ($this->extraProvider?->getHeader()->isEnabled()) {
-            $extra['header'] = $this->extraProvider?->getHeader()->provide($request->getHeaders());
+            $extra['header'] = $this->extraProvider->getHeader()->provide($request->getHeaders());
         }
 
         if ($this->extraProvider?->getRequest()->isEnabled()) {
-            $extra['request'] = $this->extraProvider?->getRequest()->provide((array) $request->getParsedBody());
+            $extra['request'] = $this->extraProvider->getRequest()->provide((array) $request->getParsedBody());
         }
 
         if ($this->extraProvider?->getServer()->isEnabled()) {
-            $extra['server'] = $this->extraProvider?->getServer()->provide($request->getServerParams());
+            $extra['server'] = $this->extraProvider->getServer()->provide($request->getServerParams());
         }
 
         if ($this->extraProvider?->getSession()->isEnabled()) {
-            $extra['session'] = $this->extraProvider?->getSession()->provide($_SESSION ?? []);
+            $extra['session'] = $this->extraProvider->getSession()->provide($_SESSION ?? []);
         }
 
         if ($this->extraProvider?->getTrace()->isEnabled()) {
-            $extra['trace'] = $this->extraProvider?->getTrace()->provide($throwable->getTrace());
+            $extra['trace'] = $this->extraProvider->getTrace()->provide($throwable->getTrace());
         }
 
         return $extra;

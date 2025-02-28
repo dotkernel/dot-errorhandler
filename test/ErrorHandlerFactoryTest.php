@@ -45,7 +45,7 @@ class ErrorHandlerFactoryTest extends TestCase
             ->willReturn($this->responseFactory);
 
         $result = (new ErrorHandlerFactory())($this->container);
-        $this->assertInstanceOf(ErrorHandler::class, $result);
+        $this->assertSame(ErrorHandler::class, $result::class);
     }
 
     /**
@@ -66,6 +66,6 @@ class ErrorHandlerFactoryTest extends TestCase
             ]);
 
         $result = (new ErrorHandlerFactory())($this->container);
-        $this->assertInstanceOf(ErrorHandler::class, $result);
+        $this->assertSame(ErrorHandler::class, $result::class);
     }
 }
