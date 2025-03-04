@@ -362,16 +362,21 @@
     
 
     <h1 id="overview">Overview</h1>
-<p>dot-errorhandler is Dotkernel's PSR-15 compliant error handler.</p>
+<p><code>dot-errorhandler</code> is Dotkernel's logging error handler, providing two options:</p>
+<ul>
+<li><code>Dot\ErrorHandler\ErrorHandler</code>, same as the Zend Expressive error handling class with the only difference being the removal of the <code>final</code> statement for making extension possible</li>
+<li><code>Dot\ErrorHandler\LogErrorHandler</code> adds logging support to the default <code>ErrorHandler</code> class</li>
+</ul>
 <h2 id="badges">Badges</h2>
 <p><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler" />
-<img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.1.1" /></p>
+<img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.3.0" /></p>
 <p><a href="https://github.com/dotkernel/dot-errorhandler/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/dotkernel/dot-errorhandler" /></a>
 <a href="https://github.com/dotkernel/dot-errorhandler/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/dotkernel/dot-errorhandler" /></a>
 <a href="https://github.com/dotkernel/dot-errorhandler/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/dotkernel/dot-errorhandler" /></a>
 <a href="https://github.com/dotkernel/dot-errorhandler/blob/4.1/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/dotkernel/dot-errorhandler" /></a></p>
 <p><a href="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml"><img alt="Build Static" src="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml/badge.svg?branch=4.1" /></a>
-<a href="https://codecov.io/gh/dotkernel/dot-errorhandler"><img alt="codecov" src="https://codecov.io/gh/dotkernel/dot-errorhandler/branch/4.0/graph/badge.svg?token=0KIJARS5RS" /></a></p>
+<a href="https://codecov.io/gh/dotkernel/dot-errorhandler"><img alt="codecov" src="https://codecov.io/gh/dotkernel/dot-errorhandler/branch/4.1/graph/badge.svg?token=0KIJARS5RS" /></a>
+<a href="https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml"><img alt="PHPStan" src="https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml/badge.svg?branch=4.1" /></a></p>
 <h2 id="features">Features</h2>
 <p>This package provides two features:</p>
 <ul>
