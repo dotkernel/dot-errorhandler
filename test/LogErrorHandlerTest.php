@@ -71,7 +71,7 @@ class LogErrorHandlerTest extends TestCase
 
     public function testWillCreateWithDefaultParameters(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject);
+        $this->assertContainsOnlyInstancesOf(Subject::class, [$this->subject]);
     }
 
     public function testCreateErrorHandlerReturnsCallable(): void
@@ -104,7 +104,7 @@ class LogErrorHandlerTest extends TestCase
             new Logger($this->getConfig()),
         );
 
-        $this->assertInstanceOf(LogErrorHandler::class, $logErrorHandler);
+        $this->assertSame(LogErrorHandler::class, $logErrorHandler::class);
         $this->assertNull($logErrorHandler->getExtraProvider());
     }
 
@@ -120,7 +120,7 @@ class LogErrorHandlerTest extends TestCase
             null
         );
 
-        $this->assertInstanceOf(LogErrorHandler::class, $logErrorHandler);
+        $this->assertSame(LogErrorHandler::class, $logErrorHandler::class);
         $this->assertNull($logErrorHandler->getExtraProvider());
     }
 
@@ -136,7 +136,7 @@ class LogErrorHandlerTest extends TestCase
             new ExtraProvider()
         );
 
-        $this->assertInstanceOf(LogErrorHandler::class, $logErrorHandler);
+        $this->assertSame(LogErrorHandler::class, $logErrorHandler::class);
         $this->assertInstanceOf(ExtraProvider::class, $logErrorHandler->getExtraProvider());
     }
 
@@ -255,7 +255,7 @@ class LogErrorHandlerTest extends TestCase
 
         $response = $responseGenerator($this->exception, $this->serverRequest, ($this->responseFactory)());
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertContainsOnlyInstancesOf(ResponseInterface::class, [$response]);
     }
 
     public function testErrorHandlingTriggersListeners(): void

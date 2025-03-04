@@ -61,8 +61,8 @@ abstract class AbstractProcessor implements ProcessorInterface
             '/([^=\s;]+)=([^;]*)/',
             fn (array $matches): string => sprintf(
                 '%s=%s',
-                $matches[1] ?? '',
-                $this->replace($replacementStrategy, $matches[2] ?? '')
+                $matches[1],
+                $this->replace($replacementStrategy, $matches[2])
             ),
             $header
         );
