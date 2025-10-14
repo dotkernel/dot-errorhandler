@@ -20,4 +20,4 @@ Each row in a log file should contain the following values:
 By leveraging `dot-errorhandler`'s extra providers, you can also log additional request parameters.
 Learn more about what additional parameters are available on the [extra data](extra/introduction.md) page.
 
-> For a clear of separation between different types of logs, we recommend that you store files from each type in their own directory.
+> For a clear separation between different types of logs, we recommend that you store files from each type in their own directory.
