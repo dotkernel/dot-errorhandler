@@ -32,11 +32,13 @@ composer require dotkernel/dot-errorhandler
     - in `config/config.php` add `\Dot\ErrorHandler\ConfigProvider`
     - in `config/pipeline.php` add `\Dot\ErrorHandler\ErrorHandlerInterface::class`
         - the interface is used as an alias to keep all error handling related configurations in one file
-        - **IMPORTANT NOTE** there should be no other error handlers after this one (only before) because the other error handler will catch the error causing dot-errorhandler not to catch any error, we recommend using just one error handler unless you have an error-specific handler
+
+> If you need other error handlers, you should place them before dot-errorhandler in the pipeline; else it will not be able to catch errors.
+> We recommend using just one error handler unless you have an error-specific handler.
 
 - Configure the error handler as shown below.
 
-In **config/autoload/error-handling.global.php**:
+In `config/autoload/error-handling.global.php`:
 
 ```php
 <?php
@@ -61,17 +63,13 @@ return [
 
 A configuration example for the default logger can be found in `config/log.global.php.dist`.
 
-When declaring the `ErrorHandlerInterface` alias you can choose whether to log or not:
+When configuring the error handler in your application, you can choose between two classes:
 
-- for logging use `LogErrorHandler`
-- for the simple Zend Expressive handler user `ErrorHandler`
+- `Dot\ErrorHandler\LogErrorHandler`: for logging and displaying errors
+- `Dot\ErrorHandler\ErrorHandler`: for displaying errors only
 
-The class `Dot\ErrorHandler\ErrorHandler` is the same as the Zend Expressive error handling class the only difference being the removal of the `final` statement for making extension possible.
-
-The class `Dot\ErrorHandler\LogErrorHandler` is `Dot\ErrorHandler\ErrorHandler` with added logging support.
-
-As a note: both `LogErrorHandler` and `ErrorHandler` have factories declared in the package's `ConfigProvider`.
-If you need a custom ErrorHandler it must have a factory declared in the config, as in the below example:
+> Both `LogErrorHandler` and `ErrorHandler` have factories declared in the package's `ConfigProvider`.
+> If you need a custom ErrorHandler, it must have a factory declared in the config, as in the below example:
 
 ```php
 <?php
@@ -85,15 +83,13 @@ return [
         'factories' => [
             MyErrorHandler::class => MyCustomHandlerFactory::class,
         ],
-        
         'aliases' => [
             ErrorHandlerInterface::class => MyErrorHandler::class,
         ]
-
     ],
     'dot-errorhandler' => [
         'loggerEnabled' => true,
-        'logger' => 'dot-log.default_logger'
+        'logger' => 'dot-log.default_logger',
     ]
 ];
 ```
