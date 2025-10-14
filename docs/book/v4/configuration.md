@@ -29,17 +29,13 @@ return [
 
 A configuration example for the default logger can be found in `config/log.global.php.dist`.
 
-When declaring the `ErrorHandlerInterface` alias you can choose whether to log or not:
+When configuring the error handler in your application, you can choose between two classes:
 
-- for the simple Zend Expressive handler user `ErrorHandler`
-- for logging use `LogErrorHandler`
+- `Dot\ErrorHandler\LogErrorHandler`: for logging and displaying errors
+- `Dot\ErrorHandler\ErrorHandler`: for displaying errors only
 
-The class `Dot\ErrorHandler\ErrorHandler` is the same as the Zend Expressive error handling class the only difference being the removal of the `final` statement for making extension possible.
-
-The class `Dot\ErrorHandler\LogErrorHandler` is `Dot\ErrorHandler\ErrorHandler` with added logging support.
-
-As a note: both `LogErrorHandler` and `ErrorHandler` have factories declared in the package's `ConfigProvider`.
-If you need a custom ErrorHandler it must have a factory declared in the config, as in the below example:
+> Both `LogErrorHandler` and `ErrorHandler` have factories declared in the package's `ConfigProvider`.
+> If you need a custom ErrorHandler, it must have a factory declared in the config, as in the below example:
 
 ```php
 <?php
@@ -48,21 +44,18 @@ use Dot\ErrorHandler\ErrorHandlerInterface;
 use Custom\MyErrorHandler;
 use Custom\MyErrorHandlerFactory;
 
-
 return [
     'dependencies' => [
         'factories' => [
             MyErrorHandler::class => MyCustomHandlerFactory::class,
         ],
-        
         'aliases' => [
             ErrorHandlerInterface::class => MyErrorHandler::class,
-        ]
-
+        ],
     ],
     'dot-errorhandler' => [
         'loggerEnabled' => true,
-        'logger' => 'dot-log.default_logger'
+        'logger' => 'dot-log.default_logger',
     ]
 ];
 ```
