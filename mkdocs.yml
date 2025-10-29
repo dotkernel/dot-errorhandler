@@ -17,7 +17,7 @@ nav:
       - Installation: v3/installation.md
       - Configuration: v3/configuration.md
 site_name: dot-errorhandler
-site_description: "DotKernel's error logging handler"
+site_description: "Dotkernel's error logging handler"
 repo_url: "https://github.com/dotkernel/dot-errorhandler"
 plugins:
   - search

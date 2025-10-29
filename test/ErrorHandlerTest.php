@@ -53,7 +53,7 @@ class ErrorHandlerTest extends TestCase
 
     public function testWillCreateWithDefaultParameters(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject);
+        $this->assertContainsOnlyInstancesOf(Subject::class, [$this->subject]);
     }
 
     public function testCreateErrorHandlerReturnsCallable(): void
@@ -114,7 +114,7 @@ class ErrorHandlerTest extends TestCase
 
         $response = ($this->errorResponseGenerator)($this->exception, $this->serverRequest, ($this->responseFactory)());
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertContainsOnlyInstancesOf(ResponseInterface::class, [$response]);
     }
 
     public function testErrorHandlingTriggersListeners(): void
