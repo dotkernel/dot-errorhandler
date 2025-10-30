@@ -1,9 +1,22 @@
 # dot-errorhandler
 
-Error Logging Handler for DotKernel
+Error Logging Handler for Dotkernel
+
+## Version History
+
+| Branch | Release  | Service Manager   | Log style implementation | PHP Version                                                                                                      |
+|--------|----------|-------------------|--------------------------|------------------------------------------------------------------------------------------------------------------|
+| 4.0    | < 4.1.0  | Service Manager 3 | Laminas Log style        | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.1) |
+| 3.0    | < 4.0.0  | Service Manager 3 | Laminas Log              | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/3.4.1) |
+
+## Documentation
+
+Documentation is available at: https://docs.dotkernel.org/dot-errorhandler/
+
+## Badges
 
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler)
-![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.0)
+![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.1)
 
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/network)
@@ -12,24 +25,27 @@ Error Logging Handler for DotKernel
 
 [![Build Static](https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml/badge.svg?branch=4.0)](https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml)
 [![codecov](https://codecov.io/gh/dotkernel/dot-errorhandler/branch/4.0/graph/badge.svg?token=0KIJARS5RS)](https://codecov.io/gh/dotkernel/dot-errorhandler)
-
-[![SymfonyInsight](https://insight.symfony.com/projects/cf1f8d89-f230-4157-bc8b-7cce20c75454/big.svg)](https://insight.symfony.com/projects/cf1f8d89-f230-4157-bc8b-7cce20c75454)
+[![PHPStan](https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml/badge.svg?branch=4.0)](https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml)
 
 ## Adding the error handler
 
-- Add the composer package:
+- Add the Composer package.
 
-`composer require dotkernel/dot-errorhandler`
+```shell
+composer require dotkernel/dot-errorhandler
+```
 
 - Add the config provider
     - in `config/config.php` add `\Dot\ErrorHandler\ConfigProvider`
     - in `config/pipeline.php` add `\Dot\ErrorHandler\ErrorHandlerInterface::class`
         - the interface is used as an alias to keep all error handling related configurations in one file
-        - **IMPORTANT NOTE** there should be no other error handlers after this one (only before) because the other error handler will catch the error causing dot-errorhandler not to catch any error, we recommend using just one error handler unless you have an error-specific handler
 
-- Configure the error handler as shown below
+> If you need other error handlers, you should place them before DotErrorhandler in the pipeline; else it will not be able to catch errors.
+> We recommend using just one error handler unless you have an error-specific handler.
 
-config/autoload/error-handling.global.php
+- Configure the error handler as shown below.
+
+In `config/autoload/error-handling.global.php`:
 
 ```php
 <?php
@@ -54,45 +70,35 @@ return [
 
 A configuration example for the default logger can be found in `config/log.global.php.dist`.
 
-When declaring the `ErrorHandlerInterface` alias you can choose whether to log or not:
+When configuring the error handler in your application, you can choose between two classes:
 
-- for logging use `LogErrorHandler`
-- for the simple Zend Expressive handler user `ErrorHandler`
+- `Dot\ErrorHandler\LogErrorHandler`: for logging and displaying errors
+- `Dot\ErrorHandler\ErrorHandler`: for displaying errors only
 
-The class `Dot\ErrorHandler\ErrorHandler` is the same as the Zend Expressive error handling class
-the only difference being the removal of the `final` statement for making extension possible.
-
-The class `Dot\ErrorHandler\LogErrorHandler` is `Dot\ErrorHandler\ErrorHandler` with
-added logging support.
-
-As a note: both `LogErrorHandler` and `ErrorHandler` have factories declared in the
-package's `ConfigProvider`. If you need a custom ErrorHandler it must have a factory
-declared in the config, as in the example.
+> Both `LogErrorHandler` and `ErrorHandler` have factories declared in the package's `ConfigProvider`.
+> If you need a custom ErrorHandler, it must have a factory declared in the config, as in the below example:
 
 Example:
 
 ```php
 <?php
 
-use Dot\ErrorHandler\ErrorHandlerInterface;
-use Custom\MyErrorHandler;
-use Custom\MyErrorHandlerFactory;
+declare(strict_types=1);
 
 return [
-    'dependencies' => [
+    'dependencies'     => [
         'factories' => [
-            MyErrorHandler::class => MyCustomHandlerFactory::class,
+            \App\CustomErrorHandler::class => \App\CustomHandlerFactory::class,
         ],
-        
         'aliases' => [
-            ErrorHandlerInterface::class => MyErrorHandler::class,
-        ]
+            \Dot\ErrorHandler\ErrorHandlerInterface::class => \App\CustomErrorHandler::class,
+        ],
 
     ],
     'dot-errorhandler' => [
         'loggerEnabled' => true,
-        'logger' => 'dot-log.default_logger'
-    ]
+        'logger'        => 'dot-log.default_logger',
+    ],
 ];
 ```
 

@@ -45,7 +45,7 @@ class ErrorHandlerFactoryTest extends TestCase
             ->willReturn($this->responseFactory);
 
         $result = (new ErrorHandlerFactory())($this->container);
-        $this->assertInstanceOf(ErrorHandler::class, $result);
+        $this->assertContainsOnlyInstancesOf(ErrorHandler::class, [$result]);
     }
 
     /**
@@ -57,7 +57,7 @@ class ErrorHandlerFactoryTest extends TestCase
     {
         $this->container->method('has')
             ->with(ErrorResponseGenerator::class)
-            ->willReturn($this->createMock(ErrorResponseGenerator::class));
+            ->willReturn(true);
 
         $this->container->method('get')
             ->willReturnMap([
@@ -66,6 +66,6 @@ class ErrorHandlerFactoryTest extends TestCase
             ]);
 
         $result = (new ErrorHandlerFactory())($this->container);
-        $this->assertInstanceOf(ErrorHandler::class, $result);
+        $this->assertContainsOnlyInstancesOf(ErrorHandler::class, [$result]);
     }
 }

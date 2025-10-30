@@ -63,7 +63,7 @@ class LogErrorHandlerTest extends TestCase
 
     public function testWillCreateWithDefaultParameters(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject);
+        $this->assertContainsOnlyInstancesOf(Subject::class, [$this->subject]);
     }
 
     public function testCreateErrorHandlerReturnsCallable(): void
@@ -145,7 +145,7 @@ class LogErrorHandlerTest extends TestCase
 
         $response = $responseGenerator($this->exception, $this->serverRequest, ($this->responseFactory)());
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertContainsOnlyInstancesOf(ResponseInterface::class, [$response]);
     }
 
     public function testErrorHandlingTriggersListeners(): void

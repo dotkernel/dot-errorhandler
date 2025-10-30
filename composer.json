@@ -6,7 +6,7 @@
     "homepage": "https://github.com/dotkernel/dot-errorhandler",
     "authors": [
         {
-            "name": "DotKernel Team",
+            "name": "Dotkernel Team",
             "email": "team@dotkernel.com"
         }
     ],
@@ -26,19 +26,21 @@
         }
     },
     "require": {
-        "php": "~8.2.0 || ~8.3.0",
-        "dotkernel/dot-log": "^4.0.2",
-        "laminas/laminas-diactoros": "^3.3",
-        "laminas/laminas-stratigility": "^3.11",
-        "mezzio/mezzio": "^3.19",
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
+        "dotkernel/dot-log": "^4.0.5",
+        "laminas/laminas-diactoros": "^3.8.0",
+        "laminas/laminas-stratigility": "^4.3.0",
+        "mezzio/mezzio": "^3.24",
         "psr/http-message": "^1.0 || ^2.0",
-        "psr/http-server-middleware": "^1.0"
+        "psr/http-server-middleware": "^1.0",
+        "psr/log": "^3.0"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "^2.5",
+        "laminas/laminas-coding-standard": "^3.0",
         "mikey179/vfsstream": "^1.6.7",
-        "phpunit/phpunit": "^10.5",
-        "vimeo/psalm": "^5.22"
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpunit/phpunit": "^10.5"
     },
     "autoload": {
         "psr-4": {
@@ -54,12 +56,12 @@
     "scripts": {
         "check": [
             "@cs-check",
-            "@test"
+            "@test",
+            "@static-analysis"
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
-        "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
-        "static-analysis": "psalm --shepherd --stats"
+        "static-analysis": "phpstan analyse --memory-limit 1G",
+        "test": "phpunit --colors=always"
     }
 }
