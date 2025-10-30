@@ -2,10 +2,19 @@
 
 `dot-errorhandler` is Dotkernel's logging error handler, providing two options:
 
+## Version History
+
+| Branch | Release  | Service Manager   | Log style implementation | PHP Version                                                                                                      |
+|--------|----------|-------------------|--------------------------|------------------------------------------------------------------------------------------------------------------|
+| 4.1    | >= 4.2.0 | Service Manager 4 | PSR-Log                  | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.4.0) |
+| 4.1    | < 4.2.0  | Service Manager 4 | Laminas Log style        | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.1.1) |
+| 4.0    | < 4.1.0  | Service Manager 3 | Laminas Log style        | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.1) |
+| 3.0    | < 4.0.0  | Service Manager 3 | Laminas Log              | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/3.4.1) |
+
 ## Badges
 
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler)
-![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.3.0)
+![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.4.0)
 
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/network)
