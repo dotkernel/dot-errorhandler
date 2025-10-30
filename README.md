@@ -21,7 +21,7 @@ Documentation is available at: https://docs.dotkernel.org/dot-errorhandler/
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/network)
 [![GitHub stars](https://img.shields.io/github/stars/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/stargazers)
-[![GitHub license](https://img.shields.io/github/license/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/blob/3.0/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/blob/4.0/LICENSE)
 
 [![Build Static](https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml/badge.svg?branch=4.0)](https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml)
 [![codecov](https://codecov.io/gh/dotkernel/dot-errorhandler/branch/4.0/graph/badge.svg?token=0KIJARS5RS)](https://codecov.io/gh/dotkernel/dot-errorhandler)
@@ -52,18 +52,16 @@ In `config/autoload/error-handling.global.php`:
 
 use Dot\ErrorHandler\ErrorHandlerInterface;
 use Dot\ErrorHandler\LogErrorHandler;
-use Dot\ErrorHandler\ErrorHandler;
 
 return [
-    'dependencies' => [
+    'dependencies'     => [
         'aliases' => [
             ErrorHandlerInterface::class => LogErrorHandler::class,
-        ]
-
+        ],
     ],
     'dot-errorhandler' => [
         'loggerEnabled' => true,
-        'logger' => 'dot-log.default_logger'
+        'logger'        => 'dot-log.default_logger',
     ]
 ];
 ```
