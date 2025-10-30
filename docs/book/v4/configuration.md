@@ -9,20 +9,20 @@ In **config/autoload/error-handling.global.php**:
 ```php
 <?php
 
+declare(strict_types=1);
+
 use Dot\ErrorHandler\ErrorHandlerInterface;
 use Dot\ErrorHandler\LogErrorHandler;
-use Dot\ErrorHandler\ErrorHandler;
 
 return [
-    'dependencies' => [
+    'dependencies'     => [
         'aliases' => [
             ErrorHandlerInterface::class => LogErrorHandler::class,
-        ]
-
+        ],
     ],
     'dot-errorhandler' => [
         'loggerEnabled' => true,
-        'logger' => 'dot-log.default_logger'
+        'logger'        => 'dot-log.default_logger',
     ]
 ];
 ```
@@ -40,23 +40,21 @@ When configuring the error handler in your application, you can choose between t
 ```php
 <?php
 
-use Dot\ErrorHandler\ErrorHandlerInterface;
-use Custom\MyErrorHandler;
-use Custom\MyErrorHandlerFactory;
+declare(strict_types=1);
 
 return [
-    'dependencies' => [
+    'dependencies'     => [
         'factories' => [
-            MyErrorHandler::class => MyCustomHandlerFactory::class,
+            \App\CustomErrorHandler::class => \App\CustomHandlerFactory::class,
         ],
         'aliases' => [
-            ErrorHandlerInterface::class => MyErrorHandler::class,
+            \Dot\ErrorHandler\ErrorHandlerInterface::class => \App\CustomErrorHandler::class,
         ],
     ],
     'dot-errorhandler' => [
         'loggerEnabled' => true,
-        'logger' => 'dot-log.default_logger',
-    ]
+        'logger'        => 'dot-log.default_logger',
+    ],
 ];
 ```
 

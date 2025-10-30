@@ -2,6 +2,15 @@
 
 dot-errorhandler is Dotkernel's PSR-15 compliant error handler.
 
+## Version History
+
+| Branch | Release  | Service Manager   | Log style implementation | PHP Version                                                                                                      |
+|--------|----------|-------------------|--------------------------|------------------------------------------------------------------------------------------------------------------|
+| 4.1    | >= 4.2.0 | Service Manager 4 | PSR-Log                  | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.4.0) |
+| 4.1    | < 4.2.0  | Service Manager 4 | Laminas Log style        | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.1.1) |
+| 4.0    | < 4.1.0  | Service Manager 3 | Laminas Log style        | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.1) |
+| 3.0    | < 4.0.0  | Service Manager 3 | Laminas Log              | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/3.4.1) |
+
 ## Documentation
 
 Documentation is available at: https://docs.dotkernel.org/dot-errorhandler/
@@ -9,7 +18,7 @@ Documentation is available at: https://docs.dotkernel.org/dot-errorhandler/
 ## Badges
 
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler)
-![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.3.0)
+![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.4.0)
 
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/network)
@@ -45,18 +54,16 @@ In `config/autoload/error-handling.global.php`:
 
 use Dot\ErrorHandler\ErrorHandlerInterface;
 use Dot\ErrorHandler\LogErrorHandler;
-use Dot\ErrorHandler\ErrorHandler;
 
 return [
     'dependencies' => [
         'aliases' => [
             ErrorHandlerInterface::class => LogErrorHandler::class,
-        ]
-
+        ],
     ],
     'dot-errorhandler' => [
         'loggerEnabled' => true,
-        'logger' => 'dot-log.default_logger'
+        'logger' => 'dot-log.default_logger',
     ]
 ];
 ```
@@ -71,26 +78,26 @@ When configuring the error handler in your application, you can choose between t
 > Both `LogErrorHandler` and `ErrorHandler` have factories declared in the package's `ConfigProvider`.
 > If you need a custom ErrorHandler, it must have a factory declared in the config, as in the below example:
 
+Example:
+
 ```php
 <?php
 
-use Dot\ErrorHandler\ErrorHandlerInterface;
-use Custom\MyErrorHandler;
-use Custom\MyErrorHandlerFactory;
+declare(strict_types=1);
 
 return [
-    'dependencies' => [
+    'dependencies'     => [
         'factories' => [
-            MyErrorHandler::class => MyCustomHandlerFactory::class,
+            \App\CustomErrorHandler::class => \App\CustomHandlerFactory::class,
         ],
         'aliases' => [
-            ErrorHandlerInterface::class => MyErrorHandler::class,
-        ]
+            \Dot\ErrorHandler\ErrorHandlerInterface::class => \App\CustomErrorHandler::class,
+        ],
     ],
     'dot-errorhandler' => [
         'loggerEnabled' => true,
-        'logger' => 'dot-log.default_logger',
-    ]
+        'logger'        => 'dot-log.default_logger',
+    ],
 ];
 ```
 
