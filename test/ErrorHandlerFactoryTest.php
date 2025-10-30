@@ -6,6 +6,7 @@ namespace DotTest\ErrorHandler;
 
 use Dot\ErrorHandler\ErrorHandler;
 use Dot\ErrorHandler\ErrorHandlerFactory;
+use Mezzio\Middleware\ErrorResponseGenerator;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +37,7 @@ class ErrorHandlerFactoryTest extends TestCase
     public function testWillCreateWithDefaultOption(): void
     {
         $this->container->method('has')
-            ->with('Mezzio\Middleware\ErrorResponseGenerator')
+            ->with(ErrorResponseGenerator::class)
             ->willReturn(false);
 
         $this->container->method('get')
@@ -47,24 +48,24 @@ class ErrorHandlerFactoryTest extends TestCase
         $this->assertContainsOnlyInstancesOf(ErrorHandler::class, [$result]);
     }
 
-//    /**
-//     * @throws ContainerExceptionInterface
-//     * @throws Exception
-//     * @throws NotFoundExceptionInterface
-//     */
-//    public function testWillCreateWithErrorResponseGenerator(): void
-//    {
-//        $this->container->method('has')
-//            ->with(ErrorResponseGenerator::class)
-//            ->willReturn($this->createMock(ErrorResponseGenerator::class));
-//
-//        $this->container->method('get')
-//            ->willReturnMap([
-//                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
-//                [ResponseInterface::class, $this->responseFactory],
-//            ]);
-//
-//        $result = (new ErrorHandlerFactory())($this->container);
-//        $this->assertInstanceOf(ErrorHandler::class, $result);
-//    }
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws Exception
+     * @throws NotFoundExceptionInterface
+     */
+    public function testWillCreateWithErrorResponseGenerator(): void
+    {
+        $this->container->method('has')
+            ->with(ErrorResponseGenerator::class)
+            ->willReturn(true);
+
+        $this->container->method('get')
+            ->willReturnMap([
+                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ResponseInterface::class, $this->responseFactory],
+            ]);
+
+        $result = (new ErrorHandlerFactory())($this->container);
+        $this->assertContainsOnlyInstancesOf(ErrorHandler::class, [$result]);
+    }
 }

@@ -6,6 +6,7 @@ namespace Dot\ErrorHandler;
 
 use Dot\Log\LoggerInterface;
 use InvalidArgumentException;
+use Mezzio\Middleware\ErrorResponseGenerator;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -46,8 +47,8 @@ class LogErrorHandlerFactory
             $logger = $container->get($errorHandlerConfig[self::ERROR_HANDLER_LOGGER_KEY]);
         }
 
-        $generator = $container->has('Mezzio\Middleware\ErrorResponseGenerator')
-            ? $container->get('Mezzio\Middleware\ErrorResponseGenerator')
+        $generator = $container->has(ErrorResponseGenerator::class)
+            ? $container->get(ErrorResponseGenerator::class)
             : null;
 
         return new LogErrorHandler($container->get(ResponseInterface::class), $generator, $logger);

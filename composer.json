@@ -30,6 +30,7 @@
         "dotkernel/dot-log": "^4.0.5",
         "laminas/laminas-diactoros": "^3.8.0",
         "laminas/laminas-stratigility": "^4.3.0",
+        "mezzio/mezzio": "^3.24",
         "psr/http-message": "^1.0 || ^2.0",
         "psr/http-server-middleware": "^1.0",
         "psr/log": "^3.0"
