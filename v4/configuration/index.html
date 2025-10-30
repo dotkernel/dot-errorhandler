@@ -366,20 +366,20 @@
 <p>In <strong>config/autoload/error-handling.global.php</strong>:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 
+declare(strict_types=1);
+
 use Dot\ErrorHandler\ErrorHandlerInterface;
 use Dot\ErrorHandler\LogErrorHandler;
-use Dot\ErrorHandler\ErrorHandler;
 
 return [
-    'dependencies' =&gt; [
+    'dependencies'     =&gt; [
         'aliases' =&gt; [
             ErrorHandlerInterface::class =&gt; LogErrorHandler::class,
-        ]
-
+        ],
     ],
     'dot-errorhandler' =&gt; [
         'loggerEnabled' =&gt; true,
-        'logger' =&gt; 'dot-log.default_logger'
+        'logger'        =&gt; 'dot-log.default_logger',
     ]
 ];</code></pre>
 <p>A configuration example for the default logger can be found in <code>config/log.global.php.dist</code>.</p>
@@ -394,23 +394,21 @@ If you need a custom ErrorHandler, it must have a factory declared in the config
 </blockquote>
 <pre class="highlight"><code class="language-php">&lt;?php
 
-use Dot\ErrorHandler\ErrorHandlerInterface;
-use Custom\MyErrorHandler;
-use Custom\MyErrorHandlerFactory;
+declare(strict_types=1);
 
 return [
-    'dependencies' =&gt; [
+    'dependencies'     =&gt; [
         'factories' =&gt; [
-            MyErrorHandler::class =&gt; MyCustomHandlerFactory::class,
+            \App\CustomErrorHandler::class =&gt; \App\CustomHandlerFactory::class,
         ],
         'aliases' =&gt; [
-            ErrorHandlerInterface::class =&gt; MyErrorHandler::class,
+            \Dot\ErrorHandler\ErrorHandlerInterface::class =&gt; \App\CustomErrorHandler::class,
         ],
     ],
     'dot-errorhandler' =&gt; [
         'loggerEnabled' =&gt; true,
-        'logger' =&gt; 'dot-log.default_logger',
-    ]
+        'logger'        =&gt; 'dot-log.default_logger',
+    ],
 ];</code></pre>
 <p>Config examples can be found in this project's <code>config</code> directory.</p>
 
