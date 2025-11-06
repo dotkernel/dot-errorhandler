@@ -26,8 +26,8 @@
         "dotkernel/dot-log": "^5.0",
         "laminas/laminas-diactoros": "^3.8.0",
         "laminas/laminas-stdlib": "^3.21",
-        "laminas/laminas-stratigility": "^4.3.0",
-        "mezzio/mezzio": "^3.24",
+        "laminas/laminas-stratigility": "^3.0 || ^4.0",
+        "mezzio/mezzio": "^3.19",
         "psr/http-message": "^1.0 || ^2.0",
         "psr/http-server-middleware": "^1.0.2"
     },
