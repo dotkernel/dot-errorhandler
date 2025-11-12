@@ -15,6 +15,15 @@ Logging Error Handler for DotKernel
 
 [![SymfonyInsight](https://insight.symfony.com/projects/cf1f8d89-f230-4157-bc8b-7cce20c75454/big.svg)](https://insight.symfony.com/projects/cf1f8d89-f230-4157-bc8b-7cce20c75454)
 
+## Version History
+
+| Branch | Release  | PSR-11 | Log Style Implementation | OSS Lifecycle                                                                                                                                      | PHP Version                                                                                                      |
+|--------|----------|--------|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| 4.1    | `>= 4.2` | 2      | PSR-Log                  | ![OSS Lifecycle](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.1%2FOSSMETADATA)  | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.4.1) |
+| 4.1    | `< 4.2`  | 2      | Laminas Log              | ![OSS Lifecycle](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.1%2FOSSMETADATA)  | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.1.1) |
+| 4.0    | `< 4.1`  | 1      | Laminas Log              | ![OSS Lifecycle](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.0%2FOSSMETADATA)  | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.2) |
+| 3.0    | `< 4.0`  | 1      | Laminas Log              | ![OSS Lifecycle](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F3.0%2FOSSMETADATA)  | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/3.4.1) |
+
 ## Adding the error handler
 
 - Add the composer package:
