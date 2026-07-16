@@ -82,7 +82,7 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
      * triggers all listeners with the same arguments (but using the response
      * returned from createErrorResponse()), and then returns the response.
      *
-     * If a valid Logger is available, the error, and it's message are logged in the
+     * If a valid Logger is available, the error and its message are logged in the
      * configured format.
      */
     public function handleThrowable(Throwable $e, ServerRequestInterface $request): ResponseInterface

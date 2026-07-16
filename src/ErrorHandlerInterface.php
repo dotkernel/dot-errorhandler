@@ -52,7 +52,7 @@ use Psr\Http\Server\RequestHandlerInterface;
  * error response, and can then react to them. They are best suited for
  * logging and monitoring purposes.
  *
- * Listeners are attached using the attachListener() method, and triggered
+ * Listeners are attached using the attachListener() method and triggered
  * in the order attached.
  */
 interface ErrorHandlerInterface extends MiddlewareInterface
