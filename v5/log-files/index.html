@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="dot-errorhandler">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v3/overview/">
+        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v5/log-files/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Overview - dot-errorhandler - Dotkernel Documentation</title>
+        <title>Log files - dot-errorhandler - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -149,13 +149,13 @@
         <div class="btn-group">
             <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
                 
-                    v3
+                    v5
                 
             </button>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
                 
                 
-                <a href="../../v5/overview/" class="dropdown-item">
+                <a href="../overview/" class="dropdown-item active">
                     
                         v5 (latest)
                     
@@ -171,7 +171,7 @@
                 
                 
                 
-                <a href="./" class="dropdown-item active">
+                <a href="../../v3/overview/" class="dropdown-item">
                     
                         v3
                     
@@ -207,7 +207,7 @@
                         
                     
 
-                    <li class="breadcrumb-item active" aria-current="page">Overview</li>
+                    <li class="breadcrumb-item active" aria-current="page">Log files</li>
                 
             
         </ol>
@@ -232,26 +232,10 @@
 
                 
                 
-
-                    
-                    
-                
-            
-
-                
-                
-
-                    
-                    
-                
-            
-
-                
-                
                     
                         
-<li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Overview</a>
+<li class="subnavigation__list-item ">
+    <a href="../overview/" class="subnavigation__link">Overview</a>
 </li>
 
                     
@@ -266,6 +250,104 @@
     <a href="../configuration/" class="subnavigation__link">Configuration</a>
 </li>
 
+                    
+                        
+<li class="subnavigation__list-item subnavigation__list-item--active">
+    <a href="./" class="subnavigation__link">Log files</a>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#extra-data" role="button" aria-expanded="false" aria-controls="extra-data">
+        <span class="subnavigation__headline">Extra data</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="extra-data">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../extra/introduction/" class="subnavigation__link">Introduction</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../extra/cookie/" class="subnavigation__link">Cookie</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../extra/header/" class="subnavigation__link">Header</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../extra/request/" class="subnavigation__link">Request</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../extra/server/" class="subnavigation__link">Server</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../extra/session/" class="subnavigation__link">Session</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../extra/trace/" class="subnavigation__link">Trace route</a>
+</li>
+
+        
+    </ul>
+</li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+
+                
+                
+
+                    
                     
                 
             
@@ -286,15 +368,11 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#version-history" class="toc__link nav-link">Version History</a>
+                    <a href="#what-is-a-log-file" class="toc__link nav-link">What is a log file</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#badges" class="toc__link nav-link">Badges</a>
-                </li>
-            
-                <li class="toc__entry">
-                    <a href="#features" class="toc__link nav-link">Features</a>
+                    <a href="#what-is-in-a-log-file" class="toc__link nav-link">What is in a log file</a>
                 </li>
             
             </ul>
@@ -307,84 +385,34 @@
                     
                     
 
-    <div class="alert alert-danger alert-caution" role="alert">
-        <p class="mb-0">
-            The documentation you are viewing is for an older version of this component.<br>
-            <a href="../..">Switch to the latest (v5) version.</a>
-        </p>
-    </div>
-
 
 
 
     
     
 
-    <h1 id="overview">Overview</h1>
-<p><code>dot-errorhandler</code> is Dotkernel's logging error handler, providing two options:</p>
-<h2 id="version-history">Version History</h2>
-<div class="table-responsive"><table>
-<thead>
-<tr>
-<th>Branch</th>
-<th>Release</th>
-<th>PSR-11</th>
-<th>Log Style Implementation</th>
-<th>OSS Lifecycle</th>
-<th>PHP Version</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>4.1</td>
-<td><code>&gt;= 4.2</code></td>
-<td>2</td>
-<td>PSR-Log</td>
-<td><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.1%2FOSSMETADATA" /></td>
-<td><img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.4.1" /></td>
-</tr>
-<tr>
-<td>4.1</td>
-<td><code>&lt; 4.2</code></td>
-<td>2</td>
-<td>Laminas Log</td>
-<td><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.1%2FOSSMETADATA" /></td>
-<td><img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.1.1" /></td>
-</tr>
-<tr>
-<td>4.0</td>
-<td><code>&lt; 4.1</code></td>
-<td>1</td>
-<td>Laminas Log</td>
-<td><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.0%2FOSSMETADATA" /></td>
-<td><img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.2" /></td>
-</tr>
-<tr>
-<td>3.0</td>
-<td><code>&lt; 4.0</code></td>
-<td>1</td>
-<td>Laminas Log</td>
-<td><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F3.0%2FOSSMETADATA" /></td>
-<td><img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/3.4.1" /></td>
-</tr>
-</tbody>
-</table></div>
-<h2 id="badges">Badges</h2>
-<p><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler" />
-<img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.1" /></p>
-<p><a href="https://github.com/dotkernel/dot-errorhandler/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/blob/4.0/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/dotkernel/dot-errorhandler" /></a></p>
-<p><a href="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml"><img alt="Build Static" src="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml/badge.svg?branch=4.0" /></a>
-<a href="https://codecov.io/gh/dotkernel/dot-errorhandler"><img alt="codecov" src="https://codecov.io/gh/dotkernel/dot-errorhandler/branch/4.0/graph/badge.svg?token=0KIJARS5RS" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml"><img alt="PHPStan" src="https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml/badge.svg?branch=4.0" /></a></p>
-<h2 id="features">Features</h2>
-<p>This package provides two features:</p>
+    <h1 id="log-files">Log files</h1>
+<h2 id="what-is-a-log-file">What is a log file</h2>
+<p>Log files are plain text files, containing rows of log activity, each row being a standalone activity formatted as specified in <code>dot-errorhandler</code>'s configuration file.
+By default, log activities are formatted with JSON, so each row should be a decodable JSON string.</p>
+<h2 id="what-is-in-a-log-file">What is in a log file</h2>
+<p>Each row in a log file should contain the following values:</p>
 <ul>
-<li><code>Dot\ErrorHandler\ErrorHandler</code>, same as the Mezzio error handling class with the only difference being the removal of the <code>final</code> statement for making extension possible</li>
-<li><code>Dot\ErrorHandler\LogErrorHandler</code> adds logging support to the default <code>ErrorHandler</code> class</li>
+<li><strong>timestamp</strong>: string representation of the date and time when the error occurred</li>
+<li><strong>priority</strong>: numeric representation of the error level</li>
+<li><strong>priorityName</strong>: string representation of the error level</li>
+<li><strong>message</strong>: error message describing the error</li>
+<li><strong>extra</strong>: an array of extra information that may help the developer debug the error:<ul>
+<li><strong>file</strong>: the file in which the error occurred</li>
+<li><strong>line</strong>: the line from <strong>file</strong> where the error occurred</li>
 </ul>
+</li>
+</ul>
+<p>By leveraging <code>dot-errorhandler</code>'s extra providers, you can also log additional request parameters.
+Learn more about what additional parameters are available on the <a href="../extra/introduction/">extra data</a> page.</p>
+<blockquote>
+<p>For a clear separation between different types of logs, we recommend that you store files from each type in their own directory.</p>
+</blockquote>
 
 
 
@@ -394,9 +422,9 @@
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../v4/extra/trace/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../configuration/">
                     <i class="bi bi-chevron-left"></i>
-                    Trace route
+                    Configuration
                 </a>
             
         </li>
@@ -404,8 +432,8 @@
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../installation/">
-                    Installation
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../extra/introduction/">
+                    Introduction
                     <i class="bi bi-chevron-right"></i>
                 </a>
             

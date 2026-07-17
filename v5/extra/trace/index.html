@@ -18,11 +18,11 @@
         <meta name="docsearch:component" content="dot-errorhandler">
 
         
-        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v3/overview/">
+        <link rel="canonical" href="https://docs.dotkernel.org/dot-errorhandler/v5/extra/trace/">
         
         <link rel="shortcut icon" href="https://docs.dotkernel.org/img/dk_docs_favicon_white.svg">
 
-        <title>Overview - dot-errorhandler - Dotkernel Documentation</title>
+        <title>Trace route - dot-errorhandler - Dotkernel Documentation</title>
 
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap.css">
         <link rel="stylesheet" href="https://docs.dotkernel.org/css/bootstrap-icons.min.css">
@@ -149,13 +149,13 @@
         <div class="btn-group">
             <button type="button" class="btn dropdown-toggle bg-light" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
                 
-                    v3
+                    v5
                 
             </button>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
                 
                 
-                <a href="../../v5/overview/" class="dropdown-item">
+                <a href="../../overview/" class="dropdown-item active">
                     
                         v5 (latest)
                     
@@ -163,7 +163,7 @@
                 
                 
                 
-                <a href="../../v4/overview/" class="dropdown-item">
+                <a href="../../../v4/overview/" class="dropdown-item">
                     
                         v4
                     
@@ -171,7 +171,7 @@
                 
                 
                 
-                <a href="./" class="dropdown-item active">
+                <a href="../../../v3/overview/" class="dropdown-item">
                     
                         v3
                     
@@ -198,7 +198,7 @@
                 
 
                 
-                    <li class="breadcrumb-item"><a href="../..">dot-errorhandler</a></li>
+                    <li class="breadcrumb-item"><a href="../../..">dot-errorhandler</a></li>
 
                     
                         
@@ -206,8 +206,15 @@
                             
                         
                     
+                        
+                            
+                            
+                                <li class="breadcrumb-item">Extra data</li>
+                            
+                        
+                    
 
-                    <li class="breadcrumb-item active" aria-current="page">Overview</li>
+                    <li class="breadcrumb-item active" aria-current="page">Trace route</li>
                 
             
         </ol>
@@ -222,7 +229,7 @@
                     
     <div class="subnavigation hidden-print">
 <!--        <h4 class="subnavigation__title">-->
-<!--            <a href="../..">dot-errorhandler</a>-->
+<!--            <a href="../../..">dot-errorhandler</a>-->
 <!--        </h4>-->
 
         <h5 class="subnavigation__title">Table of Contents</h5>
@@ -232,40 +239,122 @@
 
                 
                 
-
-                    
-                    
-                
-            
-
-                
-                
-
-                    
-                    
-                
-            
-
-                
-                
                     
                         
+<li class="subnavigation__list-item ">
+    <a href="../../overview/" class="subnavigation__link">Overview</a>
+</li>
+
+                    
+                        
+<li class="subnavigation__list-item ">
+    <a href="../../installation/" class="subnavigation__link">Installation</a>
+</li>
+
+                    
+                        
+<li class="subnavigation__list-item ">
+    <a href="../../configuration/" class="subnavigation__link">Configuration</a>
+</li>
+
+                    
+                        
+<li class="subnavigation__list-item ">
+    <a href="../../log-files/" class="subnavigation__link">Log files</a>
+</li>
+
+                    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="subnavigation__list-item">
+    <a data-bs-toggle="collapse" href="#extra-data" role="button" aria-expanded="false" aria-controls="extra-data">
+        <span class="subnavigation__headline">Extra data</span>
+    </a>
+    <ul class="subnavigation__list collapse" id="extra-data">
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../introduction/" class="subnavigation__link">Introduction</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../cookie/" class="subnavigation__link">Cookie</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../header/" class="subnavigation__link">Header</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../request/" class="subnavigation__link">Request</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../server/" class="subnavigation__link">Server</a>
+</li>
+
+        
+        
+<li class="subnavigation__list-item ">
+    <a href="../session/" class="subnavigation__link">Session</a>
+</li>
+
+        
+        
 <li class="subnavigation__list-item subnavigation__list-item--active">
-    <a href="./" class="subnavigation__link">Overview</a>
+    <a href="./" class="subnavigation__link">Trace route</a>
+</li>
+
+        
+    </ul>
 </li>
 
                     
-                        
-<li class="subnavigation__list-item ">
-    <a href="../installation/" class="subnavigation__link">Installation</a>
-</li>
+                
+            
+
+                
+                
 
                     
-                        
-<li class="subnavigation__list-item ">
-    <a href="../configuration/" class="subnavigation__link">Configuration</a>
-</li>
+                    
+                
+            
 
+                
+                
+
+                    
                     
                 
             
@@ -286,15 +375,19 @@
             <ul class="toc__list">
             
                 <li class="toc__entry">
-                    <a href="#version-history" class="toc__link nav-link">Version History</a>
+                    <a href="#configure-provider" class="toc__link nav-link">Configure provider</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#badges" class="toc__link nav-link">Badges</a>
+                    <a href="#configure-processor" class="toc__link nav-link">Configure processor</a>
                 </li>
             
                 <li class="toc__entry">
-                    <a href="#features" class="toc__link nav-link">Features</a>
+                    <a href="#why-should-i-use-a-processor" class="toc__link nav-link">Why should I use a processor</a>
+                </li>
+            
+                <li class="toc__entry">
+                    <a href="#custom-processor" class="toc__link nav-link">Custom processor</a>
                 </li>
             
             </ul>
@@ -307,84 +400,89 @@
                     
                     
 
-    <div class="alert alert-danger alert-caution" role="alert">
-        <p class="mb-0">
-            The documentation you are viewing is for an older version of this component.<br>
-            <a href="../..">Switch to the latest (v5) version.</a>
-        </p>
-    </div>
-
 
 
 
     
     
+<!--        <h2 class="chapter__headline text-black-50">Extra data</h2>-->
+    
 
-    <h1 id="overview">Overview</h1>
-<p><code>dot-errorhandler</code> is Dotkernel's logging error handler, providing two options:</p>
-<h2 id="version-history">Version History</h2>
-<div class="table-responsive"><table>
-<thead>
-<tr>
-<th>Branch</th>
-<th>Release</th>
-<th>PSR-11</th>
-<th>Log Style Implementation</th>
-<th>OSS Lifecycle</th>
-<th>PHP Version</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>4.1</td>
-<td><code>&gt;= 4.2</code></td>
-<td>2</td>
-<td>PSR-Log</td>
-<td><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.1%2FOSSMETADATA" /></td>
-<td><img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.4.1" /></td>
-</tr>
-<tr>
-<td>4.1</td>
-<td><code>&lt; 4.2</code></td>
-<td>2</td>
-<td>Laminas Log</td>
-<td><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.1%2FOSSMETADATA" /></td>
-<td><img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.1.1" /></td>
-</tr>
-<tr>
-<td>4.0</td>
-<td><code>&lt; 4.1</code></td>
-<td>1</td>
-<td>Laminas Log</td>
-<td><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.0%2FOSSMETADATA" /></td>
-<td><img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.2" /></td>
-</tr>
-<tr>
-<td>3.0</td>
-<td><code>&lt; 4.0</code></td>
-<td>1</td>
-<td>Laminas Log</td>
-<td><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F3.0%2FOSSMETADATA" /></td>
-<td><img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/3.4.1" /></td>
-</tr>
-</tbody>
-</table></div>
-<h2 id="badges">Badges</h2>
-<p><img alt="OSS Lifecycle" src="https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler" />
-<img alt="PHP from Packagist (specify version)" src="https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.0.1" /></p>
-<p><a href="https://github.com/dotkernel/dot-errorhandler/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/dotkernel/dot-errorhandler" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/blob/4.0/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/dotkernel/dot-errorhandler" /></a></p>
-<p><a href="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml"><img alt="Build Static" src="https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml/badge.svg?branch=4.0" /></a>
-<a href="https://codecov.io/gh/dotkernel/dot-errorhandler"><img alt="codecov" src="https://codecov.io/gh/dotkernel/dot-errorhandler/branch/4.0/graph/badge.svg?token=0KIJARS5RS" /></a>
-<a href="https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml"><img alt="PHPStan" src="https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml/badge.svg?branch=4.0" /></a></p>
-<h2 id="features">Features</h2>
-<p>This package provides two features:</p>
+    <h1 id="log-trace-data">Log trace data</h1>
+<p>Looking at <code>dot-errorhandler</code>'s config file, the array found at <code>TraceProvider::class</code> allows you to configure the behavior of this provider:</p>
 <ul>
-<li><code>Dot\ErrorHandler\ErrorHandler</code>, same as the Mezzio error handling class with the only difference being the removal of the <code>final</code> statement for making extension possible</li>
-<li><code>Dot\ErrorHandler\LogErrorHandler</code> adds logging support to the default <code>ErrorHandler</code> class</li>
+<li><strong>enabled</strong>: enabled/disable this provider</li>
+<li><strong>processor</strong>: an array configuring the data processor to be used by the <strong>TraceProvider</strong>:<ul>
+<li><strong>class</strong>: data processor class implementing <code>Dot\ErrorHandler\Extra\Processor\ProcessorInterface</code></li>
 </ul>
+</li>
+</ul>
+<h2 id="configure-provider">Configure provider</h2>
+<p>By default, <strong>TraceProvider</strong> is enabled.
+It can be enabled only by setting <strong>enabled</strong> to <strong>true</strong>.</p>
+<p>If <strong>enabled</strong> is set to <strong>true</strong>, your log file will contain an additional field under the <code>extra</code> key, called <code>trace</code>.
+If <strong>enabled</strong> is set to <strong>false</strong>, no additional field is added under the <code>extra</code> key.</p>
+<h2 id="configure-processor">Configure processor</h2>
+<p>From here, we assume that <strong>enabled</strong> is set to <strong>true</strong>.</p>
+<p>If <strong>processor</strong> is missing/empty, the processor is ignored the provider will log the raw data available.
+If <strong>processor</strong> is specified, but <strong>class</strong> is missing/invalid, the processor is ignored and the provider will log the raw data available.</p>
+<p>From here, we assume that <strong>processor</strong>.<strong>class</strong> is valid.</p>
+<h3 id="replacement-strategy">Replacement strategy</h3>
+<p><strong>TraceProcessor</strong> does not use <strong>replacementStrategy</strong>.</p>
+<blockquote>
+<p>If you create a custom session processor, you may add <strong>replacementStrategy</strong> to the config file; it will get passed to your processor.</p>
+</blockquote>
+<h3 id="sensitive-parameters">Sensitive parameters</h3>
+<p><strong>TraceProcessor</strong> does not use <strong>sensitiveParameters</strong>.</p>
+<blockquote>
+<p>If you create a custom session processor, you may add <strong>sensitiveParameters</strong> to the config file; it will get passed to your processor.</p>
+</blockquote>
+<h2 id="why-should-i-use-a-processor">Why should I use a processor</h2>
+<p>The only advantage of using <strong>TraceProcessor</strong> is to reduce the size of the trace data that you log.
+In the below example, the trace route contains an array with dozens of items, each with the same structure (except for the last one).</p>
+<pre class="highlight"><code class="language-text">    0 =&gt; array:5 [▼
+      "file" =&gt; "/path/to/some/file.php"
+      "line" =&gt; 66
+      "function" =&gt; "someFunction"
+      "class" =&gt; "Path\To\Some\File"
+      "type" =&gt; "-&gt;"
+    ]
+    1 =&gt; array:5 [▼
+      "file" =&gt; "/path/to/some/other/file.php"
+      "line" =&gt; 33
+      "function" =&gt; "someOtherFunction"
+      "class" =&gt; "Path\To\Some\Other\File"
+      "type" =&gt; "-&gt;"
+    ]
+    ...
+    58 =&gt; array:3 [▼
+      "file" =&gt; "/path/to/index.php"
+      "line" =&gt; 36
+      "function" =&gt; "{closure}"
+    ]</code></pre>
+<p>By using <strong>TraceProcessor</strong>, the array is reduced to:</p>
+<pre class="highlight"><code class="language-text">    0 =&gt; "Path\To\Some\File-&gt;someFunction:66"
+    1 =&gt; "Path\To\Some\Other\File-&gt;someOtherFunction:33"
+    ...
+    58 =&gt; "/path/to/index.php-&gt;{closure}:36"</code></pre>
+<p>Yet it maintains the relevant information, but in a compact form.
+This works because, since using namespaced classes, it's easy to determine file paths just by looking at a FQCN.</p>
+<h2 id="custom-processor">Custom processor</h2>
+<p>If the existing processor does not offer enough features, you can create a custom processor.
+The custom processor must implement <code>Dot\ErrorHandler\Extra\Processor\ProcessorInterface</code> or extend <code>Dot\ErrorHandler\Extra\Processor\AbstractProcessor</code>, which already implements <code>Dot\ErrorHandler\Extra\Processor\ProcessorInterface</code>.
+Once the custom processor is ready, you need to configure <strong>TraceProvider</strong> to use it.
+For this, open <code>dot-errorhandler</code>'s config file and - under <strong>TraceProvider::class</strong> - set <strong>processor</strong>.<strong>class</strong> to the class string of your custom processor:</p>
+<pre class="highlight"><code class="language-php">TraceProvider::class  =&gt; [
+    'enabled'   =&gt; false,
+    'processor' =&gt; [
+        'class'               =&gt; CustomTraceProcessor::class,
+        'replacementStrategy' =&gt; ReplacementStrategy::Full,
+        'sensitiveParameters' =&gt; [
+            ProcessorInterface::ALL,
+        ],
+    ],
+],</code></pre>
+<p>Using this, trace data will be processed by <code>CustomTraceProcessor</code> and logged as provided by this new processor.</p>
 
 
 
@@ -394,9 +492,9 @@
         
         <li class="col text-nowrap text-md-start">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../v4/extra/trace/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../session/">
                     <i class="bi bi-chevron-left"></i>
-                    Trace route
+                    Session
                 </a>
             
         </li>
@@ -404,8 +502,8 @@
         
         <li class="col text-nowrap text-md-end pe-0">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../installation/">
-                    Installation
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../../v4/overview/">
+                    Overview
                     <i class="bi bi-chevron-right"></i>
                 </a>
             
@@ -529,7 +627,7 @@
 </footer>
 
         <script>
-            let base_url = '../..',
+            let base_url = '../../..',
                 project  = "packages",
                 siteName = 'dot-errorhandler';
 
