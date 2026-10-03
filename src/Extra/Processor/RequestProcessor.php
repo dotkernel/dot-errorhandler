@@ -28,7 +28,7 @@ class RequestProcessor extends AbstractProcessor
             } else {
                 $matches = array_filter(
                     $sensitiveParameters,
-                    fn (string $sensitiveParameter) => str_contains(strtolower($key), $sensitiveParameter)
+                    static fn (string $sensitiveParameter) => str_contains(strtolower($key), $sensitiveParameter)
                 );
 
                 if (! isset($this->sensitiveParameters[ProcessorInterface::ALL]) && count($matches) === 0) {

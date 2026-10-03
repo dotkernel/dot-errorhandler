@@ -13,7 +13,7 @@ class SessionProcessor extends AbstractProcessor
     public function process(array $data): array
     {
         return array_map(
-            fn (iterable $container): array => ArrayUtils::iteratorToArray($container),
+            static fn (iterable $container): array => ArrayUtils::iteratorToArray($container),
             $data
         );
     }

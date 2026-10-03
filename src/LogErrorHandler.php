@@ -43,7 +43,7 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
         ?LoggerInterface $logger = null,
         ?ExtraProvider $extraProvider = null,
     ) {
-        $this->responseFactory   = function () use ($responseFactory): ResponseInterface {
+        $this->responseFactory   = static function () use ($responseFactory): ResponseInterface {
             return $responseFactory();
         };
         $this->responseGenerator = $responseGenerator ?: new ErrorResponseGenerator();
@@ -109,7 +109,7 @@ class LogErrorHandler implements MiddlewareInterface, ErrorHandlerInterface
         /**
          * @throws ErrorException if error is not within the error_reporting mask.
          */
-        return function (int $errno, string $errstr, string $errfile, int $errline): void {
+        return static function (int $errno, string $errstr, string $errfile, int $errline): void {
             if (! (error_reporting() & $errno)) {
                 // error_reporting does not include this error
                 return;

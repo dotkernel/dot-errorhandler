@@ -15,7 +15,7 @@ class TraceProcessor extends AbstractProcessor
             /**
              * @param string[] $trace
              */
-            fn (array $trace): string => sprintf(
+            static fn (array $trace): string => sprintf(
                 '%s%s%s:%d',
                 $trace['class'] ?? $trace['file'] ?? 'unknown',
                 $trace['type'] ?? '->',
