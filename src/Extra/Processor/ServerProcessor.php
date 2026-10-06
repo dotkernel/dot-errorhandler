@@ -49,7 +49,7 @@ class ServerProcessor extends AbstractProcessor
 
     private function stringToAssociativeArray(string $subject): array
     {
-        return array_reduce(explode('; ', $subject), function (array $result, string $keyValue): array {
+        return array_reduce(explode('; ', $subject), static function (array $result, string $keyValue): array {
             $keyValue             = explode('=', $keyValue, 2);
             $result[$keyValue[0]] = $keyValue[1] ?? '';
 
@@ -60,7 +60,7 @@ class ServerProcessor extends AbstractProcessor
     private function associativeArrayToString(array $subject): string
     {
         $subject = array_map(
-            fn(string $key, string $value) => sprintf('%s=%s', $key, $value),
+            static fn(string $key, string $value) => sprintf('%s=%s', $key, $value),
             array_keys($subject),
             $subject
         );
