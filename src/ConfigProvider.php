@@ -6,6 +6,14 @@ namespace Dot\ErrorHandler;
 
 class ConfigProvider
 {
+    /**
+     * @return array{
+     *     dependencies: array{
+     *         aliases: array<class-string, class-string>,
+     *         factories: array<class-string, class-string>,
+     *     },
+     * }
+     */
     public function __invoke(): array
     {
         return [

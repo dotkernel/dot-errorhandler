@@ -24,5 +24,9 @@ abstract class AbstractProvider implements ProviderInterface
         return $this->processor;
     }
 
+    /**
+     * @param array<array-key, mixed> $data
+     * @return array<array-key, mixed>
+     */
     abstract public function provide(array $data): array;
 }

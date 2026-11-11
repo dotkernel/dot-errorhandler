@@ -11,6 +11,10 @@ use function strtolower;
 
 class HeaderProcessor extends AbstractProcessor
 {
+    /**
+     * @param array<array-key, mixed> $data
+     * @return array<array-key, mixed>
+     */
     public function process(array $data): array
     {
         if (count($data) === 0) {
@@ -23,18 +27,20 @@ class HeaderProcessor extends AbstractProcessor
             if (is_array($headerValue)) {
                 $headerValue = implode('; ', $headerValue);
             }
+            $name     = strtolower((string) $headerName);
+            $isCookie = $name === 'cookie';
             if (
                 ! isset($this->sensitiveParameters[ProcessorInterface::ALL])
-                && ! isset($this->sensitiveParameters[strtolower($headerName)])
-                && $headerName !== 'cookie'
+                && ! isset($this->sensitiveParameters[$name])
+                && ! $isCookie
             ) {
                 $return[$headerName] = $headerValue;
                 continue;
             }
 
-            $return[$headerName] = $headerName === 'cookie'
-                ? $this->replaceInlineCookieValues($this->replacementStrategy, $headerValue)
-                : $this->replace($this->replacementStrategy, (string) $headerValue);
+            $return[$headerName] = $isCookie
+                ? $this->replaceInlineCookieValues($this->replacementStrategy, $this->stringify($headerValue))
+                : $this->replace($this->replacementStrategy, $this->stringify($headerValue));
         }
 
         return $return;

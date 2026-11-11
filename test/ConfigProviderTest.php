@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigProviderTest extends TestCase
 {
+    /** @var array<string, array<string, array<string, string>>> */
     private array $config;
 
     protected function setUp(): void

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Dot\ErrorHandler;
 
+use Closure;
 use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
 use Psr\Http\Message\ResponseInterface;
@@ -18,12 +19,11 @@ use function set_error_handler;
 
 class ErrorHandler implements ErrorHandlerInterface
 {
-    /** @var callable[] */
+    /** @var list<callable> */
     private array $listeners = [];
-    /** @var callable Routine that will generate the error response. */
-    private $responseGenerator;
-    /** @var callable */
-    private $responseFactory;
+    /** Routine that will generate the error response. */
+    private Closure $responseGenerator;
+    private Closure $responseFactory;
 
     /**
      * @param callable $responseFactory A factory capable of returning an
@@ -34,10 +34,8 @@ class ErrorHandler implements ErrorHandlerInterface
      */
     public function __construct(callable $responseFactory, ?callable $responseGenerator = null)
     {
-        $this->responseFactory   = static function () use ($responseFactory): ResponseInterface {
-            return $responseFactory();
-        };
-        $this->responseGenerator = $responseGenerator ?: new ErrorResponseGenerator();
+        $this->responseFactory   = static fn (): ResponseInterface => $responseFactory();
+        $this->responseGenerator = Closure::fromCallable($responseGenerator ?? new ErrorResponseGenerator());
     }
 
     public function attachListener(callable $listener): void
@@ -56,7 +54,10 @@ class ErrorHandler implements ErrorHandlerInterface
         try {
             $response = $handler->handle($request);
         } catch (Throwable $e) {
-            $response = $this->handleThrowable($e, $request);
+            // Restore first: error handling must neither leak this handler nor have its own warnings converted.
+            restore_error_handler();
+
+            return $this->handleThrowable($e, $request);
         }
 
         restore_error_handler();

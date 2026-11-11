@@ -1,11 +1,12 @@
 # dot-errorhandler
 
-dot-errorhandler is Dotkernel's PSR-15 compliant error handler.
+dot-errorhandler is Dotkernel's PSR-15 compliant error handler, with optional logging through any PSR-3 logger.
 
 ## Version History
 
 | Branch | Release  | PSR-11 | Log Style Implementation | OSS Lifecycle                                                                                                                                     | PHP Version                                                                                                      |
 |--------|----------|--------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| 6.0    | `>= 6.0` | 1, 2   | PSR-Log (any logger)     | ![OSS Lifecycle](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F6.0%2FOSSMETADATA) | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/6.0.0) |
 | 5.0    | `>= 5.0` | 2      | PSR-Log                  | ![OSS Lifecycle](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F5.0%2FOSSMETADATA) | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/5.0.0) |
 | 4.1    | `>= 4.2` | 2      | PSR-Log                  | ![OSS Lifecycle](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.1%2FOSSMETADATA) | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.4.1) |
 | 4.1    | `< 4.2`  | 2      | Laminas Log              | ![OSS Lifecycle](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fgithub.com%2Fdotkernel%2Fdot-errorhandler%2Fblob%2F4.1%2FOSSMETADATA) | ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/4.1.1) |
@@ -19,16 +20,16 @@ Documentation is available at: https://docs.dotkernel.org/dot-errorhandler/
 ## Badges
 
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/dot-errorhandler)
-![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/5.0.0)
+![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/dot-errorhandler/6.0.0)
 
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/network)
 [![GitHub stars](https://img.shields.io/github/stars/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/stargazers)
-[![GitHub license](https://img.shields.io/github/license/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/blob/5.0/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/dotkernel/dot-errorhandler)](https://github.com/dotkernel/dot-errorhandler/blob/6.0/LICENSE)
 
-[![Build Static](https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml/badge.svg?branch=5.0)](https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml)
-[![codecov](https://codecov.io/gh/dotkernel/dot-errorhandler/branch/5.0/graph/badge.svg?token=0KIJARS5RS)](https://codecov.io/gh/dotkernel/dot-errorhandler)
-[![PHPStan](https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml/badge.svg?branch=5.0)](https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml)
+[![Build Static](https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml/badge.svg?branch=6.0)](https://github.com/dotkernel/dot-errorhandler/actions/workflows/continuous-integration.yml)
+[![codecov](https://codecov.io/gh/dotkernel/dot-errorhandler/branch/6.0/graph/badge.svg?token=0KIJARS5RS)](https://codecov.io/gh/dotkernel/dot-errorhandler)
+[![PHPStan](https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml/badge.svg?branch=6.0)](https://github.com/dotkernel/dot-errorhandler/actions/workflows/static-analysis.yml)
 
 ## Adding the error handler
 
@@ -36,6 +37,12 @@ Documentation is available at: https://docs.dotkernel.org/dot-errorhandler/
 
 ```shell
 composer require dotkernel/dot-errorhandler
+```
+
+- If you use the logger from `config/log.global.php.dist`, also add `dotkernel/dot-log`; since version 6 it is no longer installed with this package:
+
+```shell
+composer require dotkernel/dot-log
 ```
 
 - Add the config provider:
@@ -69,7 +76,12 @@ return [
 ];
 ```
 
+`loggerEnabled` must be `true` or `false`, and `logger` must name a container service that implements `Psr\Log\LoggerInterface`.
+
 A configuration example for the default logger can be found in `config/log.global.php.dist`.
+`config/error-handling.global.php.dist` shows every option, including the extra request data you can log; its header settings mask `authorization` and `proxy-authorization` by default.
+
+Upgrading from an earlier version? See the [upgrade guide](https://docs.dotkernel.org/dot-errorhandler/v6/upgrading/).
 
 When configuring the error handler in your application, you can choose between two classes:
 

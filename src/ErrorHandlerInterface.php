@@ -34,7 +34,7 @@ use Psr\Http\Server\RequestHandlerInterface;
  * provided is the response prototype provided to the ErrorHandler instance
  * itself, and can be used as the basis for returning an error response.
  *
- * An error response generator must be provided as a constructor argument;
+ * An error response generator may be provided as a constructor argument;
  * if not provided, an instance of Laminas\Stratigility\Middleware\ErrorResponseGenerator
  * will be used.
  *
