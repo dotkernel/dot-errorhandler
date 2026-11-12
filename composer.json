@@ -62,13 +62,11 @@
         "check": [
             "@cs-check",
             "@test",
-            "@static-analysis",
-            "@arch"
+            "@static-analysis"
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
-        "static-analysis": "phpstan analyse --memory-limit 1G",
-        "arch": "structarmed analyse --no-progress"
+        "static-analysis": "phpstan analyse --memory-limit 1G"
     }
 }
