@@ -12,5 +12,9 @@ interface ProviderInterface
 
     public function getProcessor(): ?ProcessorInterface;
 
+    /**
+     * @param array<array-key, mixed> $data
+     * @return array<array-key, mixed>
+     */
     public function provide(array $data): array;
 }

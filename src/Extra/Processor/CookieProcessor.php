@@ -9,6 +9,10 @@ use function strtolower;
 
 class CookieProcessor extends AbstractProcessor
 {
+    /**
+     * @param array<array-key, mixed> $data
+     * @return array<array-key, mixed>
+     */
     public function process(array $data): array
     {
         if (count($this->sensitiveParameters) === 0 || count($data) === 0) {
@@ -20,7 +24,7 @@ class CookieProcessor extends AbstractProcessor
         foreach ($data as $cookieName => $cookieValue) {
             if (
                 ! isset($this->sensitiveParameters[ProcessorInterface::ALL])
-                && ! isset($this->sensitiveParameters[strtolower($cookieName)])
+                && ! isset($this->sensitiveParameters[strtolower((string) $cookieName)])
             ) {
                 $return[$cookieName] = $cookieValue;
                 continue;

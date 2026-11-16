@@ -10,8 +10,15 @@ interface ProcessorInterface
 {
     public const ALL = '*';
 
+    /**
+     * @param array<array-key, mixed> $data
+     * @return array<array-key, mixed>
+     */
     public function process(array $data): array;
 
+    /**
+     * @return array<array-key, int> sensitive names, lower-cased, as keys
+     */
     public function getSensitiveParameters(): array;
 
     public function getReplacementStrategy(): ReplacementStrategy;

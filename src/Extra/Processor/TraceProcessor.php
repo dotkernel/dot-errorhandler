@@ -9,11 +9,15 @@ use function sprintf;
 
 class TraceProcessor extends AbstractProcessor
 {
+    /**
+     * @param array<array-key, mixed> $data
+     * @return array<array-key, mixed>
+     */
     public function process(array $data): array
     {
         return array_map(
             /**
-             * @param string[] $trace
+             * @param array{file?: string, line?: int, function?: string, class?: string, type?: string} $trace
              */
             static fn (array $trace): string => sprintf(
                 '%s%s%s:%d',

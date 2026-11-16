@@ -20,7 +20,9 @@ use Dot\ErrorHandler\Extra\Provider\SessionProvider;
 use Dot\ErrorHandler\Extra\Provider\TraceProvider;
 use Dot\ErrorHandler\Extra\ReplacementStrategy;
 use Laminas\Stdlib\ArrayObject;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function array_flip;
 
@@ -70,6 +72,97 @@ class ExtraProviderTest extends TestCase
 
         $this->assertFalse($extraProvider->getTrace()->isEnabled());
         $this->assertNull($extraProvider->getTrace()->getProcessor());
+    }
+
+    /**
+     * F9: invalid provider options are ignored, not fatal.
+     */
+    public function testWillIgnoreNonArrayProviderOptions(): void
+    {
+        $extraProvider = new ExtraProvider([
+            CookieProvider::class => true,
+            HeaderProvider::class => 'enabled',
+            TraceProvider::class  => null,
+        ]);
+
+        $this->assertFalse($extraProvider->getCookie()->isEnabled());
+        $this->assertFalse($extraProvider->getHeader()->isEnabled());
+        $this->assertFalse($extraProvider->getTrace()->isEnabled());
+    }
+
+    /**
+     * F9: only the boolean true enables a provider.
+     */
+    #[DataProvider('nonTrueEnabledValues')]
+    public function testWillOnlyEnableProviderWhenEnabledIsTrue(mixed $enabled): void
+    {
+        $extraProvider = new ExtraProvider([CookieProvider::class => ['enabled' => $enabled]]);
+
+        $this->assertFalse($extraProvider->getCookie()->isEnabled());
+    }
+
+    /**
+     * @return array<string, array{mixed}>
+     */
+    public static function nonTrueEnabledValues(): array
+    {
+        return [
+            'int 1'       => [1],
+            'int 0'       => [0],
+            'null'        => [null],
+            'string yes'  => ['yes'],
+            'string true' => ['true'],
+        ];
+    }
+
+    /**
+     * F9: a processor class that does not implement ProcessorInterface is ignored.
+     */
+    public function testWillIgnoreProcessorClassNotImplementingProcessorInterface(): void
+    {
+        $extraProvider = new ExtraProvider([
+            CookieProvider::class => ['enabled' => true, 'processor' => ['class' => stdClass::class]],
+        ]);
+
+        $this->assertTrue($extraProvider->getCookie()->isEnabled());
+        $this->assertNull($extraProvider->getCookie()->getProcessor());
+    }
+
+    /**
+     * F9: only string and integer sensitive parameter names are kept, lower-cased.
+     */
+    public function testWillIgnoreInvalidSensitiveParameterNames(): void
+    {
+        $extraProvider = new ExtraProvider([
+            CookieProvider::class => [
+                'enabled'   => true,
+                'processor' => [
+                    'class'               => CookieProcessor::class,
+                    'sensitiveParameters' => ['Token', 123, null, ['nested'], 1.5],
+                ],
+            ],
+        ]);
+
+        $processor = $extraProvider->getCookie()->getProcessor();
+        $this->assertInstanceOf(CookieProcessor::class, $processor);
+        $this->assertSame(['token' => 0, 123 => 1], $processor->getSensitiveParameters());
+    }
+
+    /**
+     * An unknown replacement strategy falls back to Full.
+     */
+    public function testWillUseFullReplacementForInvalidStrategy(): void
+    {
+        $extraProvider = new ExtraProvider([
+            CookieProvider::class => [
+                'enabled'   => true,
+                'processor' => ['class' => CookieProcessor::class, 'replacementStrategy' => 'partial'],
+            ],
+        ]);
+
+        $processor = $extraProvider->getCookie()->getProcessor();
+        $this->assertInstanceOf(CookieProcessor::class, $processor);
+        $this->assertSame(ReplacementStrategy::Full, $processor->getReplacementStrategy());
     }
 
     public function testWillNotEnableProvidersWhenEmptyProviderOptions(): void

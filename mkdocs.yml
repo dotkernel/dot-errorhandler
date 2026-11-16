@@ -2,13 +2,28 @@ docs_dir: docs/book
 site_dir: docs/html
 extra:
   project: Packages
-  current_version: v5
+  current_version: v6
   versions:
+    - v6
     - v5
     - v4
     - v3
 nav:
   - Home: index.md
+  - v6:
+      - Overview: v6/overview.md
+      - Installation: v6/installation.md
+      - Configuration: v6/configuration.md
+      - "Log files": v6/log-files.md
+      - "Extra data":
+          - Introduction: v6/extra/introduction.md
+          - Cookie: v6/extra/cookie.md
+          - Header: v6/extra/header.md
+          - Request: v6/extra/request.md
+          - Server: v6/extra/server.md
+          - Session: v6/extra/session.md
+          - "Trace route": v6/extra/trace.md
+      - Upgrading: v6/upgrading.md
   - v5:
       - Overview: v5/overview.md
       - Installation: v5/installation.md
@@ -40,7 +55,7 @@ nav:
       - Installation: v3/installation.md
       - Configuration: v3/configuration.md
 site_name: dot-errorhandler
-site_description: "Dotkernel's PSR-15 compliant error handler"
+site_description: "Dotkernel's PSR-15 compliant error handler, with optional PSR-3 logging"
 repo_url: "https://github.com/dotkernel/dot-errorhandler"
 plugins:
   - search

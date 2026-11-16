@@ -8,6 +8,10 @@ use Dot\ErrorHandler\Extra\Processor\ProcessorInterface;
 
 class CookieProvider extends AbstractProvider
 {
+    /**
+     * @param array<array-key, mixed> $data
+     * @return array<array-key, mixed>
+     */
     public function provide(array $data): array
     {
         if ($this->processor instanceof ProcessorInterface) {

@@ -45,6 +45,10 @@ return [
                 'processor' => [
                     'class'               => HeaderProcessor::class,
                     'replacementStrategy' => ReplacementStrategy::Full,
+                    'sensitiveParameters' => [
+                        'authorization',
+                        'proxy-authorization',
+                    ],
                 ],
             ],
             RequestProvider::class => [

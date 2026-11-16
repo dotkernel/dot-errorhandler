@@ -13,13 +13,11 @@ use Dot\ErrorHandler\Extra\Provider\SessionProvider;
 use Dot\ErrorHandler\Extra\Provider\TraceProvider;
 
 use function array_flip;
-use function array_key_exists;
-use function array_map;
-use function assert;
-use function class_exists;
-use function count;
+use function is_a;
 use function is_array;
+use function is_int;
 use function is_string;
+use function strtolower;
 
 class ExtraProvider
 {
@@ -32,6 +30,9 @@ class ExtraProvider
     private SessionProvider $session;
     private TraceProvider $trace;
 
+    /**
+     * @param array<array-key, mixed> $options provider class => provider options; validated here
+     */
     public function __construct(array $options = [])
     {
         $extras = [
@@ -44,50 +45,56 @@ class ExtraProvider
         ];
 
         foreach ($extras as $extraKey => $extraClass) {
-            if (
-                ! array_key_exists($extraClass, $options)
-                || ! array_key_exists('enabled', $options[$extraClass])
-                || $options[$extraClass]['enabled'] === false
-            ) {
+            $providerOptions = $options[$extraClass] ?? null;
+            if (! is_array($providerOptions) || ($providerOptions['enabled'] ?? false) !== true) {
                 $this->$extraKey = new $extraClass(false);
                 continue;
             }
 
+            $processorOptions = $providerOptions['processor'] ?? null;
+            $processorClass   = is_array($processorOptions) ? ($processorOptions['class'] ?? null) : null;
             if (
-                ! array_key_exists('processor', $options[$extraClass])
-                || ! is_array($options[$extraClass]['processor'])
-                || ! array_key_exists('class', $options[$extraClass]['processor'])
-                || ! is_string($options[$extraClass]['processor']['class'])
-                || ! class_exists($options[$extraClass]['processor']['class'])
+                ! is_array($processorOptions)
+                || ! is_string($processorClass)
+                || ! is_a($processorClass, ProcessorInterface::class, true)
             ) {
                 $this->$extraKey = new $extraClass(true);
                 continue;
             }
 
-            $sensitiveParameters = [];
-            if (
-                array_key_exists('sensitiveParameters', $options[$extraClass]['processor'])
-                && is_array($options[$extraClass]['processor']['sensitiveParameters'])
-                && count($options[$extraClass]['processor']['sensitiveParameters']) > 0
-            ) {
-                $sensitiveParameters = $options[$extraClass]['processor']['sensitiveParameters'];
-                $sensitiveParameters = array_map('strtolower', $sensitiveParameters);
-                $sensitiveParameters = array_flip($sensitiveParameters);
+            $replacementStrategy = $processorOptions['replacementStrategy'] ?? null;
+            if (! $replacementStrategy instanceof ReplacementStrategy) {
+                $replacementStrategy = ReplacementStrategy::Full;
             }
 
-            $replacementStrategy = ReplacementStrategy::Full;
-            if (
-                array_key_exists('replacementStrategy', $options[$extraClass]['processor'])
-                && $options[$extraClass]['processor']['replacementStrategy'] instanceof ReplacementStrategy
-            ) {
-                $replacementStrategy = $options[$extraClass]['processor']['replacementStrategy'];
-            }
-
-            $processor = new $options[$extraClass]['processor']['class']($sensitiveParameters, $replacementStrategy);
-            assert($processor instanceof ProcessorInterface);
+            $processor = new $processorClass(
+                $this->normalizeSensitiveParameters($processorOptions['sensitiveParameters'] ?? null),
+                $replacementStrategy
+            );
 
             $this->$extraKey = new $extraClass(true, $processor);
         }
+    }
+
+    /**
+     * Keeps string and integer names only, lower-cased, as keys.
+     *
+     * @return array<array-key, int>
+     */
+    private function normalizeSensitiveParameters(mixed $sensitiveParameters): array
+    {
+        if (! is_array($sensitiveParameters)) {
+            return [];
+        }
+
+        $names = [];
+        foreach ($sensitiveParameters as $name) {
+            if (is_string($name) || is_int($name)) {
+                $names[] = strtolower((string) $name);
+            }
+        }
+
+        return array_flip($names);
     }
 
     public function getCookie(): CookieProvider

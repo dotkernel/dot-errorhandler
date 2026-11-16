@@ -13,6 +13,10 @@ use function strtolower;
 
 class RequestProcessor extends AbstractProcessor
 {
+    /**
+     * @param array<array-key, mixed> $data
+     * @return array<array-key, mixed>
+     */
     public function process(array $data): array
     {
         if (count($this->sensitiveParameters) === 0 || count($data) === 0) {
@@ -26,9 +30,10 @@ class RequestProcessor extends AbstractProcessor
             if (is_array($value)) {
                 $return[$key] = $this->process($value);
             } else {
+                $name    = strtolower((string) $key);
                 $matches = array_filter(
                     $sensitiveParameters,
-                    static fn (string $sensitiveParameter) => str_contains(strtolower($key), $sensitiveParameter)
+                    static fn (int|string $parameter): bool => str_contains($name, (string) $parameter)
                 );
 
                 if (! isset($this->sensitiveParameters[ProcessorInterface::ALL]) && count($matches) === 0) {
@@ -36,7 +41,7 @@ class RequestProcessor extends AbstractProcessor
                     continue;
                 }
 
-                $return[$key] = $this->replace($this->replacementStrategy, (string) $value);
+                $return[$key] = $this->replace($this->replacementStrategy, $this->stringify($value));
             }
         }
 
