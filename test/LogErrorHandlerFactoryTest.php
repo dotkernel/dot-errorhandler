@@ -201,6 +201,25 @@ class LogErrorHandlerFactoryTest extends TestCase
     }
 
     /**
+     * F10
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function testWillNotCreateWhenErrorResponseGeneratorIsNotCallable(): void
+    {
+        $container = $this->createContainer(
+            $this->loggerConfig(),
+            [ErrorResponseGenerator::class => new stdClass()]
+        );
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(sprintf('Service "%s" must be callable', ErrorResponseGenerator::class));
+
+        (new LogErrorHandlerFactory())($container);
+    }
+
+    /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
