@@ -10,6 +10,7 @@ use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -24,13 +25,13 @@ use function error_reporting;
 class ErrorHandlerTest extends TestCase
 {
     private Subject $subject;
-    private MockObject&ServerRequestInterface $serverRequest;
-    private MockObject&ResponseInterface $response;
+    private Stub&ServerRequestInterface $serverRequest;
+    private Stub&ResponseInterface $response;
     private ErrorResponseGenerator $errorResponseGenerator;
     /** @var callable():ResponseInterface $responseFactory */
     private $responseFactory;
     private MockObject&StreamInterface $body;
-    private MockObject&RequestHandlerInterface $handler;
+    private Stub&RequestHandlerInterface $handler;
     private Throwable $exception;
 
     /**
@@ -38,10 +39,10 @@ class ErrorHandlerTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->response      = $this->createMock(ResponseInterface::class);
-        $this->serverRequest = $this->createMock(ServerRequestInterface::class);
+        $this->response      = $this->createStub(ResponseInterface::class);
+        $this->serverRequest = $this->createStub(ServerRequestInterface::class);
         $this->body          = $this->createMock(StreamInterface::class);
-        $this->handler       = $this->createMock(RequestHandlerInterface::class);
+        $this->handler       = $this->createStub(RequestHandlerInterface::class);
 
         $this->responseFactory        = fn(): ResponseInterface => $this->response;
         $this->errorResponseGenerator = new ErrorResponseGenerator();

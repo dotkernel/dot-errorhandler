@@ -10,7 +10,7 @@ use Dot\ErrorHandler\LogErrorHandlerFactory;
 use InvalidArgumentException;
 use Mezzio\Middleware\ErrorResponseGenerator;
 use PHPUnit\Framework\MockObject\Exception;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -22,7 +22,7 @@ use function sprintf;
 
 class LogErrorHandlerFactoryTest extends TestCase
 {
-    private ContainerInterface&MockObject $container;
+    private ContainerInterface&Stub $container;
     /** @var callable $responseFactory */
     private $responseFactory;
 
@@ -31,8 +31,8 @@ class LogErrorHandlerFactoryTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->container       = $this->createMock(ContainerInterface::class);
-        $this->responseFactory = fn(): ResponseInterface => $this->createMock(ResponseInterface::class);
+        $this->container       = $this->createStub(ContainerInterface::class);
+        $this->responseFactory = fn(): ResponseInterface => $this->createStub(ResponseInterface::class);
     }
 
     /**
@@ -102,7 +102,7 @@ class LogErrorHandlerFactoryTest extends TestCase
                     . '][' . LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY . ']',
                     null,
                 ],
-                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ErrorResponseGenerator::class, $this->createStub(ErrorResponseGenerator::class)],
                 [ResponseInterface::class, $this->responseFactory],
             ]);
 
@@ -117,7 +117,7 @@ class LogErrorHandlerFactoryTest extends TestCase
      */
     public function testWillCreateWithoutExtraProviderConfig(): void
     {
-        $logger = $this->createMock(LoggerInterface::class);
+        $logger = $this->createStub(LoggerInterface::class);
 
         $this->container->method('has')
             ->with(ErrorResponseGenerator::class)
@@ -139,7 +139,7 @@ class LogErrorHandlerFactoryTest extends TestCase
                     . LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY . ']',
                     $logger,
                 ],
-                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ErrorResponseGenerator::class, $this->createStub(ErrorResponseGenerator::class)],
                 [ResponseInterface::class, $this->responseFactory],
             ]);
 
@@ -154,7 +154,7 @@ class LogErrorHandlerFactoryTest extends TestCase
      */
     public function testWillCreateWithEmptyExtraProviderConfig(): void
     {
-        $logger = $this->createMock(LoggerInterface::class);
+        $logger = $this->createStub(LoggerInterface::class);
 
         $this->container->method('has')
             ->with(ErrorResponseGenerator::class)
@@ -177,7 +177,7 @@ class LogErrorHandlerFactoryTest extends TestCase
                     . LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY . ']',
                     $logger,
                 ],
-                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ErrorResponseGenerator::class, $this->createStub(ErrorResponseGenerator::class)],
                 [ResponseInterface::class, $this->responseFactory],
             ]);
 
@@ -192,7 +192,7 @@ class LogErrorHandlerFactoryTest extends TestCase
      */
     public function testWillCreateWithInvalidExtraProviderConfig(): void
     {
-        $logger = $this->createMock(LoggerInterface::class);
+        $logger = $this->createStub(LoggerInterface::class);
 
         $this->container->method('has')
             ->with(ErrorResponseGenerator::class)
@@ -217,7 +217,7 @@ class LogErrorHandlerFactoryTest extends TestCase
                     . LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY . ']',
                     $logger,
                 ],
-                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ErrorResponseGenerator::class, $this->createStub(ErrorResponseGenerator::class)],
                 [ResponseInterface::class, $this->responseFactory],
             ]);
 
@@ -232,7 +232,7 @@ class LogErrorHandlerFactoryTest extends TestCase
      */
     public function testWillCreateWithValidConfig(): void
     {
-        $logger = $this->createMock(LoggerInterface::class);
+        $logger = $this->createStub(LoggerInterface::class);
 
         $this->container->method('has')
             ->with(ErrorResponseGenerator::class)
@@ -254,7 +254,7 @@ class LogErrorHandlerFactoryTest extends TestCase
                     . LogErrorHandlerFactory::ERROR_HANDLER_LOGGER_KEY . ']',
                     $logger,
                 ],
-                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ErrorResponseGenerator::class, $this->createStub(ErrorResponseGenerator::class)],
                 [ResponseInterface::class, $this->responseFactory],
             ]);
 
