@@ -8,7 +8,7 @@ use Dot\ErrorHandler\ErrorHandler;
 use Dot\ErrorHandler\ErrorHandlerFactory;
 use Mezzio\Middleware\ErrorResponseGenerator;
 use PHPUnit\Framework\MockObject\Exception;
-use PHPUnit\Framework\MockObject\Stub;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -17,7 +17,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class ErrorHandlerFactoryTest extends TestCase
 {
-    private Stub|ContainerInterface $container;
+    private MockObject|ContainerInterface $container;
     /** @var callable $responseFactory */
     private $responseFactory;
 
@@ -26,7 +26,7 @@ class ErrorHandlerFactoryTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->container       = $this->createStub(ContainerInterface::class);
+        $this->container       = $this->createMock(ContainerInterface::class);
         $this->responseFactory = fn(): ResponseInterface => $this->createStub(ResponseInterface::class);
     }
 

@@ -9,8 +9,9 @@ use Dot\ErrorHandler\LogErrorHandler;
 use Dot\ErrorHandler\LogErrorHandlerFactory;
 use InvalidArgumentException;
 use Mezzio\Middleware\ErrorResponseGenerator;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\Exception;
-use PHPUnit\Framework\MockObject\Stub;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -22,7 +23,7 @@ use function sprintf;
 
 class LogErrorHandlerFactoryTest extends TestCase
 {
-    private ContainerInterface&Stub $container;
+    private ContainerInterface&MockObject $container;
     /** @var callable $responseFactory */
     private $responseFactory;
 
@@ -31,7 +32,7 @@ class LogErrorHandlerFactoryTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->container       = $this->createStub(ContainerInterface::class);
+        $this->container       = $this->createMock(ContainerInterface::class);
         $this->responseFactory = fn(): ResponseInterface => $this->createStub(ResponseInterface::class);
     }
 
@@ -84,6 +85,7 @@ class LogErrorHandlerFactoryTest extends TestCase
      * @throws NotFoundExceptionInterface
      * @throws Exception
      */
+    #[AllowMockObjectsWithoutExpectations]
     public function testWillCreateWithValidConfigAndMissingLogger(): void
     {
         $this->container->method('get')

@@ -19,6 +19,7 @@ use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
@@ -36,15 +37,16 @@ use Throwable;
 use function error_reporting;
 use function file_get_contents;
 
+#[AllowMockObjectsWithoutExpectations]
 class LogErrorHandlerTest extends TestCase
 {
     private Subject $subject;
     private Stub&ServerRequestInterface $serverRequest;
-    private Stub&ResponseInterface $response;
+    private MockObject&ResponseInterface $response;
     /** @var callable():ResponseInterface $responseFactory */
     private $responseFactory;
     private MockObject&StreamInterface $body;
-    private Stub&RequestHandlerInterface $handler;
+    private MockObject&RequestHandlerInterface $handler;
     private Throwable $exception;
     private ErrorResponseGenerator $errorResponseGenerator;
     private vfsStreamDirectory $fileSystem;
@@ -54,10 +56,10 @@ class LogErrorHandlerTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->response      = $this->createStub(ResponseInterface::class);
+        $this->response      = $this->createMock(ResponseInterface::class);
         $this->serverRequest = $this->createStub(ServerRequestInterface::class);
         $this->body          = $this->createMock(StreamInterface::class);
-        $this->handler       = $this->createStub(RequestHandlerInterface::class);
+        $this->handler       = $this->createMock(RequestHandlerInterface::class);
 
         $this->responseFactory        = fn(): ResponseInterface => $this->response;
         $this->errorResponseGenerator = new ErrorResponseGenerator();
