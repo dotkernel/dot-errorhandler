@@ -19,8 +19,10 @@ use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -35,10 +37,11 @@ use Throwable;
 use function error_reporting;
 use function file_get_contents;
 
+#[AllowMockObjectsWithoutExpectations]
 class LogErrorHandlerTest extends TestCase
 {
     private Subject $subject;
-    private MockObject&ServerRequestInterface $serverRequest;
+    private Stub&ServerRequestInterface $serverRequest;
     private MockObject&ResponseInterface $response;
     /** @var callable():ResponseInterface $responseFactory */
     private $responseFactory;
@@ -54,7 +57,7 @@ class LogErrorHandlerTest extends TestCase
     public function setUp(): void
     {
         $this->response      = $this->createMock(ResponseInterface::class);
-        $this->serverRequest = $this->createMock(ServerRequestInterface::class);
+        $this->serverRequest = $this->createStub(ServerRequestInterface::class);
         $this->body          = $this->createMock(StreamInterface::class);
         $this->handler       = $this->createMock(RequestHandlerInterface::class);
 
@@ -63,7 +66,7 @@ class LogErrorHandlerTest extends TestCase
         $this->subject                = new LogErrorHandler(
             $this->responseFactory,
             $this->errorResponseGenerator,
-            $this->createMock(LoggerInterface::class)
+            $this->createStub(LoggerInterface::class)
         );
         $this->exception              = new RuntimeException('Not Implemented', 501);
         $this->fileSystem             = vfsStream::setup('root', 0644, ['log']);

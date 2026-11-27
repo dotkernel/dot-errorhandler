@@ -8,8 +8,10 @@ use Dot\ErrorHandler\ErrorHandler;
 use Dot\ErrorHandler\ErrorHandler as Subject;
 use ErrorException;
 use Laminas\Stratigility\Middleware\ErrorResponseGenerator;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,10 +23,11 @@ use Throwable;
 
 use function error_reporting;
 
+#[AllowMockObjectsWithoutExpectations]
 class ErrorHandlerTest extends TestCase
 {
     private Subject $subject;
-    private MockObject&ServerRequestInterface $serverRequest;
+    private Stub&ServerRequestInterface $serverRequest;
     private MockObject&ResponseInterface $response;
     private ErrorResponseGenerator $errorResponseGenerator;
     /** @var callable():ResponseInterface $responseFactory */
@@ -39,7 +42,7 @@ class ErrorHandlerTest extends TestCase
     public function setUp(): void
     {
         $this->response      = $this->createMock(ResponseInterface::class);
-        $this->serverRequest = $this->createMock(ServerRequestInterface::class);
+        $this->serverRequest = $this->createStub(ServerRequestInterface::class);
         $this->body          = $this->createMock(StreamInterface::class);
         $this->handler       = $this->createMock(RequestHandlerInterface::class);
 

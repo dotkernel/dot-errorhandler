@@ -27,7 +27,7 @@ class ErrorHandlerFactoryTest extends TestCase
     public function setUp(): void
     {
         $this->container       = $this->createMock(ContainerInterface::class);
-        $this->responseFactory = fn(): ResponseInterface => $this->createMock(ResponseInterface::class);
+        $this->responseFactory = fn(): ResponseInterface => $this->createStub(ResponseInterface::class);
     }
 
     /**
@@ -61,7 +61,7 @@ class ErrorHandlerFactoryTest extends TestCase
 
         $this->container->method('get')
             ->willReturnMap([
-                [ErrorResponseGenerator::class, $this->createMock(ErrorResponseGenerator::class)],
+                [ErrorResponseGenerator::class, $this->createStub(ErrorResponseGenerator::class)],
                 [ResponseInterface::class, $this->responseFactory],
             ]);
 
